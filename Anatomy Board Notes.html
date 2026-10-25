@@ -1,0 +1,1039 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Anatomy Board Notes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Cairo:wght@400;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: one 2-hour study block as a page. Timeline clock, then summary plates,
+   a build-it-yourself drawing, and flip cards. Arabic explanations sit in RTL panels beside English content. */
+:root{
+  --bg:#EAF0F4; --surface:#FFFFFF; --surface2:#F3F7FA; --ink:#0B2030; --muted:#566B7A; --line:#D2DEE6; --dot:#C9D7E0;
+  --accent:#0A8F9C; --hot:#E5483A; --ok:#1E9A66; --warn:#C98300;
+  --m-rect:#0A8F9C; --m-eo:#D98A06; --m-io:#D6335F; --m-ta:#4A5BD8;
+  --shadow:0 1px 2px rgba(11,32,48,.06),0 10px 28px rgba(11,32,48,.08);
+  --f-display:'Bricolage Grotesque','Avenir Next','Segoe UI',system-ui,sans-serif;
+  --f-body:'Instrument Sans','Segoe UI',system-ui,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --f-ar:'Cairo','Segoe UI','Noto Naskh Arabic',Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#08131B; --surface:#0F1E29; --surface2:#142632; --ink:#E7F1F6; --muted:#8FA6B5; --line:#203442; --dot:#173040;
+  --accent:#38C7D4; --hot:#FF6B5B; --ok:#4FD39B; --warn:#F2B545;
+  --m-rect:#38C7D4; --m-eo:#F5B83D; --m-io:#FF6F91; --m-ta:#8E9BFF;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#08131B; --surface:#0F1E29; --surface2:#142632; --ink:#E7F1F6; --muted:#8FA6B5; --line:#203442; --dot:#173040;
+  --accent:#38C7D4; --hot:#FF6B5B; --ok:#4FD39B; --warn:#F2B545;
+  --m-rect:#38C7D4; --m-eo:#F5B83D; --m-io:#FF6F91; --m-ta:#8E9BFF;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 var(--f-body);
+  background-image:radial-gradient(var(--dot) 1px,transparent 1.2px);background-size:22px 22px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 80px}
+.wrap{max-width:1040px;margin:0 auto}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.ar{direction:rtl;text-align:right;font-family:var(--f-ar);font-size:16px;line-height:1.85}
+@keyframes rise{from{opacity:.25;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .65s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--d,0)*80ms)}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;gap:8px;padding:10px 0;margin-bottom:6px;overflow-x:auto;background:linear-gradient(var(--bg) 75%,transparent)}
+.nav button{white-space:nowrap;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 16px;font-weight:600;font-size:13px;transition:background .2s,color .2s}
+.nav button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* hero */
+.hero{padding:18px 0 8px}
+.crumbs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.crumbs span{font:600 11px/1 var(--f-mono);letter-spacing:.06em;padding:6px 10px;border-radius:99px;background:var(--surface);border:1px solid var(--line);color:var(--muted)}
+.crumbs .hi{background:color-mix(in srgb,var(--hot) 14%,var(--surface));color:var(--hot);border-color:transparent}
+.crumbs .tm2{color:var(--accent)}
+h1{font-size:clamp(36px,6.4vw,66px);line-height:.98;font-weight:800;margin-bottom:16px}
+h1 span{color:var(--accent)}
+.goal{display:grid;gap:6px;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);max-width:760px}
+.goal p:first-child{color:var(--muted)}
+.sec{margin-top:46px}
+.sec-h{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.sec-h h2{font-size:clamp(25px,4vw,34px);font-weight:800}
+.sec-h p{color:var(--muted);font-size:14px;max-width:50ch}
+
+/* clock + timeline */
+.clock{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);margin-bottom:18px}
+.bigring{position:relative;width:132px;height:132px}
+.bigring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.bigring .t{fill:none;stroke:var(--line);stroke-width:10}
+.bigring .f{fill:none;stroke:var(--accent);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .9s linear}
+.bigring .c{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.bigring .c b{font:700 24px/1 var(--f-mono)}
+.bigring .c span{font-size:11px;color:var(--muted)}
+.clock h3{font-size:20px;font-weight:800}
+.clock .now{color:var(--muted);font-size:14px;margin:4px 0 12px}
+.ctrls{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--surface2);border-radius:99px;padding:9px 16px;font:600 13px var(--f-mono)}
+.btn.go{background:var(--ink);color:var(--bg);border-color:var(--ink);min-width:96px}
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:0;position:relative}
+.step{display:grid;grid-template-columns:78px 22px 1fr;gap:0 14px;padding-bottom:14px;position:relative}
+.step .tm{font:600 12px/1.2 var(--f-mono);color:var(--muted);text-align:right;padding-top:16px}
+.step .tm b{display:block;color:var(--ink);font-size:13px}
+.step .spine{position:relative;display:flex;justify-content:center}
+.step .spine::before{content:"";position:absolute;top:0;bottom:-14px;width:2px;background:var(--line)}
+.step:last-child .spine::before{bottom:50%}
+.step .node{position:relative;z-index:1;margin-top:16px;width:16px;height:16px;border-radius:50%;background:var(--surface);border:3px solid var(--line);transition:background .3s,border-color .3s}
+.step.cur .node{border-color:var(--accent);background:var(--accent);animation:ping 1.8s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 55%,transparent)}100%{box-shadow:0 0 0 12px transparent}}
+.step.done .node{background:var(--ok);border-color:var(--ok)}
+.scard{padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);display:grid;gap:8px;transition:border-color .3s}
+.step.cur .scard{border-color:var(--accent)}
+.scard .top{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.scard h4{font-size:17px;font-weight:800}
+.scard .len{font:600 11px/1 var(--f-mono);padding:5px 8px;border-radius:99px;background:var(--surface2);color:var(--muted)}
+.scard .en{font-size:14px;color:var(--muted)}
+.scard .ar{padding-top:8px;border-top:1px dashed var(--line)}
+.tick{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);background:none;border:0;padding:0;justify-self:start}
+.tick i{width:20px;height:20px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;transition:background .2s,border-color .2s}
+.tick svg{width:12px;height:12px;opacity:0}
+.tick svg path{fill:none;stroke:var(--surface);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.step.done .tick i{background:var(--ok);border-color:var(--ok)}
+.step.done .tick svg{opacity:1}
+
+/* summary */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mus{--c:var(--m-eo);padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);display:grid;gap:10px;align-content:start}
+.mus header{display:flex;align-items:center;gap:10px}
+.mus .sw{width:14px;height:14px;border-radius:50%;background:var(--c)}
+.mus h3{font-size:22px;font-weight:800}
+.mus .layer-l{margin-left:auto;font:600 11px var(--f-mono);color:var(--c)}
+.rowx{display:grid;grid-template-columns:86px 1fr;gap:4px 12px;font-size:14px;padding-top:8px;border-top:1px solid var(--line)}
+.rowx b{font:600 11px/1.6 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+.rowx ul{margin:0;padding-left:16px}
+.mus .ar{margin-top:2px;padding:10px 12px;border-radius:14px;background:color-mix(in srgb,var(--c) 10%,var(--surface))}
+.hooks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.hook{padding:16px;border-radius:18px;background:var(--ink);color:var(--bg);display:grid;gap:8px}
+.hook b{font:800 26px/1.1 var(--f-display)}
+.hook span{font-size:13px;opacity:.85}
+.hook .ar{font-size:14px;line-height:1.7;opacity:.95;padding-top:8px;border-top:1px solid color-mix(in srgb,var(--bg) 25%,transparent)}
+.acts{margin-top:14px;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+.acts h3{font-size:20px;margin-bottom:10px}
+.act{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;padding:9px 0;border-top:1px solid var(--line);font-size:14px;align-items:start}
+.act .ar{font-size:15px;line-height:1.7}
+.rtab{margin-top:14px;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+.rtab-h{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+.rtab h3{font-size:20px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:13.5px}
+th{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:2px solid var(--line)}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.m{font-weight:700;white-space:nowrap}
+td.m i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
+td.rv{cursor:pointer;transition:filter .3s,background .3s}
+.blind td.rv:not(.shown){filter:blur(7px);background:var(--surface2);user-select:none}
+
+/* drawing */
+.draw{display:grid;grid-template-columns:1.1fr 1fr;gap:16px;align-items:start}
+.canvas{background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:8px}
+.canvas svg{display:block;width:100%;height:auto}
+.sk{fill:none;stroke:var(--muted);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.sk.dash{stroke-dasharray:5 6;opacity:.7}
+.dot-s{fill:var(--muted)}
+.layer{transition:opacity .6s}
+.layer .dr{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1s ease}
+.layer.on .dr{stroke-dashoffset:0}
+.layer .fl{opacity:0;transition:opacity .7s .3s}
+.layer.on .fl{opacity:1}
+.layer .lab{opacity:0;transition:opacity .5s .6s}
+.layer.on .lab{opacity:1}
+.layer.off{opacity:0}
+.svg-past .layer.past{opacity:.5}
+.svg-past .layer.past .lab{opacity:0}
+.lab text{font:600 14px var(--f-body);fill:var(--ink)}
+.lab .sub{font:500 12px var(--f-body);fill:var(--muted)}
+.lab line{stroke:var(--muted);stroke-width:1.2}
+.lab circle{fill:var(--muted)}
+.hatch{fill:none;stroke-width:2.2;stroke-linecap:round}
+.stepper{display:grid;gap:12px}
+.dots{display:flex;gap:8px;flex-wrap:wrap}
+.dots button{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);background:var(--surface);font:700 13px var(--f-mono);transition:background .2s,color .2s,border-color .2s}
+.dots button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.dots button.seen{border-color:var(--ok)}
+.sbox{padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);display:grid;gap:10px;min-height:310px;align-content:start}
+.sbox .k{font:600 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.sbox h3{font-size:22px;font-weight:800}
+.sbox .en{font-size:14px;color:var(--muted)}
+.sbox .ar{padding:12px 14px;border-radius:14px;background:var(--surface2)}
+.sbox .note{font-size:12px;color:var(--muted)}
+.snav{display:flex;gap:8px;flex-wrap:wrap}
+
+/* cards */
+.deck-top{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:7px 13px;font-weight:600;font-size:13px}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.score{font:600 12px var(--f-mono);color:var(--muted)}
+.score b{color:var(--ok)}.score u{text-decoration:none;color:var(--warn);font-weight:700}
+.pbar{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-bottom:14px}
+.pbar i{display:block;height:100%;background:var(--accent);transition:width .4s}
+.flip{perspective:1400px}
+.inner{display:grid;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.3,.8,.3,1)}
+.flip.on .inner{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;min-height:300px;padding:22px;border-radius:24px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);display:grid;gap:12px;align-content:start;text-align:left;width:100%}
+.face.back{transform:rotateY(180deg);background:var(--surface2)}
+.flip.on .front{pointer-events:none}
+.flip:not(.on) .back{pointer-events:none}
+.face .tagr{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.ty{font:700 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:99px;background:var(--surface2);color:var(--accent)}
+.face.back .ty{background:var(--surface)}
+.cn{font:600 12px var(--f-mono);color:var(--muted)}
+.face h3{font-size:clamp(20px,3.2vw,26px);font-weight:700;line-height:1.3}
+.face .hintx{font-size:12.5px;color:var(--muted)}
+.opts{display:grid;gap:8px}
+.opts div{padding:10px 14px;border:1px solid var(--line);border-radius:12px;font-size:15px}
+.face .ans{font-size:16px;line-height:1.6}
+.face .ans ul{margin:0;padding-left:20px}
+.face .ar{padding:12px 14px;border-radius:14px;background:var(--surface)}
+.rate{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.rate .btn{flex:1;min-width:130px;padding:13px;font-size:14px;text-align:center}
+.rate .got{background:var(--ok);color:var(--surface);border-color:var(--ok)}
+.rate .rev{background:color-mix(in srgb,var(--warn) 20%,var(--surface));color:var(--warn);border-color:transparent}
+.rate .btn[disabled]{opacity:.4;cursor:not-allowed}
+.dnav{display:flex;gap:8px;justify-content:space-between;margin-top:12px;flex-wrap:wrap}
+.foot{margin-top:46px;font-size:13px;color:var(--muted);max-width:70ch}
+
+@media (max-width:820px){
+  .draw{grid-template-columns:1fr}
+  .mgrid{grid-template-columns:1fr}
+  .hooks{grid-template-columns:1fr}
+  .act{grid-template-columns:1fr}
+  .clock{grid-template-columns:1fr;justify-items:start}
+}
+@media (max-width:520px){
+  .step{grid-template-columns:44px 20px 1fr;gap:0 10px}
+  .step .tm{font-size:11px}
+  .rowx{grid-template-columns:1fr}
+  .face{min-height:340px;padding:18px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<style>
+:root{--h1:#D98A06;--h2:#D6335F;--h3:#4A5BD8;--h4:#0A8F9C;--h5:#2E9E5B;--h6:#E26A2C;--h7:#E5483A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--h1:#F5B83D;--h2:#FF6F91;--h3:#8E9BFF;--h4:#38C7D4;--h5:#5FD58C;--h6:#FF9A5C;--h7:#FF6B5B}}
+:root[data-theme="dark"]{--h1:#F5B83D;--h2:#FF6F91;--h3:#8E9BFF;--h4:#38C7D4;--h5:#5FD58C;--h6:#FF9A5C;--h7:#FF6B5B}
+.sub-h{font:800 22px var(--f-display);margin:30px 0 12px}
+.sub-h small{display:block;font:500 13px var(--f-body);color:var(--muted);margin-top:2px}
+.full{grid-column:1/-1}
+.cmpwrap{overflow-x:auto;margin-top:4px}
+.cmp{min-width:560px}
+.cmp th:first-child{width:96px}
+.cmp td b{font:600 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--c)}
+.cmp ul{margin:0;padding-left:16px}
+.cmp td.pa{background:color-mix(in srgb,var(--m-rect) 7%,transparent)}
+.cmp td.sy{background:color-mix(in srgb,var(--m-io) 7%,transparent)}
+.clin{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.cl{padding:16px;border-radius:18px;background:var(--surface);border:1px solid var(--line);display:grid;gap:6px;align-content:start}
+.cl b{font:800 18px var(--f-display)}
+.cl p{font-size:14px}
+.cl .ar{font-size:15px;line-height:1.75;padding-top:8px;border-top:1px dashed var(--line)}
+.hooks4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.hooks4 .hook b{font-size:21px}
+@media (max-width:980px){.hooks4{grid-template-columns:1fr 1fr}}
+@media (max-width:820px){.clin{grid-template-columns:1fr}.hooks4{grid-template-columns:1fr}}
+.canvas svg[hidden]{display:none}
+.sk.thin{stroke-width:1.6}
+.arrowp{fill:none;stroke-width:2.6;stroke-linecap:round}
+.note-t{font:700 14px var(--f-body)}
+.note-s{font:500 12px var(--f-body);fill:var(--muted)}
+.bigring .c b{display:block;font-size:21px}
+.bigring .c span{display:block;margin-top:4px}
+@media (max-width:640px){.canvas{overflow-x:auto}.canvas svg{min-width:540px}}
+.drawhd{font:700 12px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:22px 0 8px}.drawblk{margin-bottom:10px}</style>
+
+<div class="wrap">
+  <nav class="nav" id="nav" aria-label="Sections"><button data-go="s-time" class="on">Route</button><button data-go="s-sum">Notes</button><button data-go="s-cards">Question cards</button></nav>
+
+  <header class="hero">
+    <div class="crumbs rise"><span>DHB202-1</span><span>Anatomy</span><span class="tm2">Lecture board</span><span class="hi">8 photos in study order</span><span>Mon 26 Oct</span></div>
+    <h1 class="rise" style="--d:1">The board,<br><span>written in study order</span></h1>
+    <div class="goal rise" style="--d:2">
+      <p>Everything from your 8 board photos, rewritten as 8 numbered parts in the order you should learn them: abdominal wall, inguinal canal and hernias, then the stomach.</p>
+      <p class="ar" lang="ar">الهدف: كل ما في صور السبورة الثمانية مكتوب في ثمانية أجزاء مرقمة بالترتيب الذي تذاكر به: جدار البطن، ثم القناة الإربية والفتق، ثم المعدة.</p>
+    </div>
+  </header>
+
+  <section class="sec" id="s-time">
+    <div class="sec-h"><h2>Your 90-minute route</h2><p>Press Start and the page follows the clock. Tick each step when done.</p></div>
+    <div class="clock">
+      <div class="bigring"><svg viewBox="0 0 132 132" aria-hidden="true"><circle class="t" cx="66" cy="66" r="57"/><circle class="f" id="clRing" cx="66" cy="66" r="57" stroke-dasharray="358.1" stroke-dashoffset="358.1"/></svg><div class="c"><div><b id="clTxt">0:00:00</b><span id="clOf">of 1:30:00</span></div></div></div>
+      <div>
+        <h3 id="clStep">Ready when you are</h3>
+        <p class="now" id="clNow">Open the board photos next to this page and press Start.</p>
+        <div class="ctrls"><button class="btn go" id="clGo">Start</button><button class="btn" id="clReset">Reset</button></div>
+      </div>
+    </div>
+    <ol class="tl" id="tl"></ol>
+  </section>
+
+  <section class="sec" id="s-sum">
+    <div class="sec-h"><h2>Summary</h2><p>Every line comes from the board or from your anatomy PDF, with an Arabic explanation under each part. Each part ends with a step-by-step drawing of its board picture. Items marked * are standard facts added by me, or a reading of the board I am not fully sure about.</p></div>
+    <div class="cmpwrap"><table class="cmp" style="min-width:0"><thead><tr><th style="width:60px">Part</th><th>Topic</th><th>Board photos</th></tr></thead><tbody>
+      <tr><td><b>1</b></td><td class="pa">Rectus sheath: walls and contents</td><td class="pa">Revision board</td></tr>
+      <tr><td><b>2 to 4</b></td><td class="sy">Nerves, arteries, veins of the wall</td><td class="sy">Three diagram boards</td></tr>
+      <tr><td><b>5, 6</b></td><td class="pa">Inguinal canal; direct versus indirect hernia</td><td class="pa">Canal and hernia boards</td></tr>
+      <tr><td><b>7</b></td><td class="sy">Other hernias</td><td class="sy">Lumbar, femoral, front wall</td></tr>
+      <tr><td><b>8</b></td><td class="pa">Stomach: relations, bed, blood supply</td><td class="pa">Stomach boards</td></tr></tbody></table></div>
+
+    <h3 class="sub-h">1. Rectus sheath<small>Formed by the aponeuroses of external oblique, internal oblique and transversus abdominis.</small></h3>
+    <div class="mgrid">
+      <article class="mus full" style="--c:var(--m-rect)">
+        <header><span class="sw"></span><h3>Walls at three levels</h3></header>
+        <div class="cmpwrap"><table class="cmp" style="min-width:0"><thead><tr><th style="width:150px">Level</th><th>Anterior wall</th><th>Posterior wall</th></tr></thead><tbody>
+          <tr><td><b>Above the costal margin</b></td><td class="pa">External oblique aponeurosis only</td><td class="sy">Chest wall (costal cartilages 5, 6, 7)</td></tr>
+          <tr><td><b>Costal margin to midway between umbilicus and pubic symphysis</b></td><td class="pa">External oblique + anterior lamina of internal oblique</td><td class="sy">Transversus aponeurosis + posterior lamina of internal oblique</td></tr>
+          <tr><td><b>Below that midway level</b></td><td class="pa">All 3 aponeuroses</td><td class="sy">Fascia transversalis</td></tr></tbody></table></div>
+        <p class="ar" lang="ar">فوق الحافة الضلعية: الأمامي سفاق المائلة الخارجية فقط والخلفي جدار الصدر. من الحافة الضلعية حتى منتصف المسافة بين السرة والارتفاق العاني: الأمامي الخارجية + الصفيحة الأمامية للداخلية، والخلفي المستعرضة + الصفيحة الخلفية للداخلية. أسفل ذلك: الأمامي السفاقات الثلاثة والخلفي اللفافة المستعرضة.</p>
+      </article>
+      <article class="mus full" style="--c:var(--m-ta)">
+        <header><span class="sw"></span><h3>Contents: 5 items</h3></header>
+        <div class="rowx"><b>1, 2</b><span>Rectus abdominis; pyramidalis (inconstant*)</span></div>
+        <div class="rowx"><b>3</b><span>Superior epigastric vessels: artery from the internal thoracic; vein drains to the internal thoracic vein</span></div>
+        <div class="rowx"><b>4</b><span>Inferior epigastric vessels: artery from the external iliac; vein drains to the external iliac vein</span></div>
+        <div class="rowx"><b>5</b><span>Lower 6 thoracic nerves, entering through the posterior wall</span></div>
+        <div class="rowx"><b>Check*</b><span>The board adds "1st lumbar", but the PDF says the L1 branches (ilio-hypogastric, ilio-inguinal) do not enter the sheath. Follow the PDF</span></div>
+        <p class="ar" lang="ar">المحتويات خمسة: المستقيمة، الهرمية (غير ثابتة*)، الأوعية فوق الشرسوفية العلوية، الأوعية فوق الشرسوفية السفلية، والأعصاب الصدرية السفلية الستة. السبورة تضيف العصب القطني الأول لكن الملف يقول إن فروع L1 لا تدخل الغمد، فاتبع الملف.</p>
+      </article>
+    </div>
+
+    <h3 class="sub-h">2. Nerve supply<small>Segmental bands, from T7 at the xiphoid down to L1 at the groin.</small></h3>
+    <div class="mgrid"><article class="mus full" style="--c:var(--m-eo)">
+      <header><span class="sw"></span><h3>Dermatomes of the wall</h3></header>
+      <div class="rowx"><b>T7 to T9</b><span>Above the umbilicus (T7 at the xiphoid)</span></div>
+      <div class="rowx"><b>T10</b><span>At the umbilicus</span></div>
+      <div class="rowx"><b>T11, T12, L1</b><span>Below the umbilicus; L1 supplies the groin and pubic region</span></div>
+      <p class="ar" lang="ar">الأعصاب الصدرية السفلية (T7 إلى T12) وL1 تغذي الجدار: T7 إلى T9 فوق السرة، T10 عند السرة، T11 وT12 وL1 أسفل السرة.</p>
+    </article></div>
+    <div class="drawhd">Draw it: step by step</div><div class="draw drawblk" data-svgs="svgA"><div class="canvas"><svg id="svgA" viewBox="0 0 640 480" role="img" aria-label="Front of the abdominal wall with the segmental nerve levels T7 to L1"></svg></div><div class="stepper"><div class="dots"></div><div class="sbox"></div><div class="snav"><button class="btn sPrev">Back</button><button class="btn go sNext">Next step</button><button class="btn sPlay">Play all</button></div></div></div>
+
+    <h3 class="sub-h">3. Arteries<small>Two vertical vessels meet at the umbilicus, and lateral arteries feed the sides.</small></h3>
+    <div class="mgrid"><article class="mus full" style="--c:var(--h7)">
+      <header><span class="sw"></span><h3>Sources</h3></header>
+      <div class="rowx"><b>Superior epigastric</b><span>From the internal thoracic; inside the sheath</span></div>
+      <div class="rowx"><b>Inferior epigastric</b><span>From the external iliac; inside the sheath; they anastomose at the umbilicus</span></div>
+      <div class="rowx"><b>Lateral</b><span>10th and 11th intercostal and lateral thoracic*; subcostal; 4 lumbar arteries (from the aorta); deep circumflex iliac (from the external iliac)</span></div>
+      <p class="ar" lang="ar">الشريان فوق الشرسوفي العلوي من الصدري الباطن، والسفلي من الحرقفي الظاهر، ويلتقيان عند السرة داخل الغمد. الجانبية: الوربية العاشرة والحادية عشرة، تحت الضلع، 4 قطنية، والحرقفي المنعطف العميق.</p>
+    </article></div>
+    <div class="drawhd">Draw it: step by step</div><div class="draw drawblk" data-svgs="svgB"><div class="canvas"><svg id="svgB" viewBox="0 0 640 480" role="img" aria-label="Front of the abdominal wall with the epigastric and lateral arteries"></svg></div><div class="stepper"><div class="dots"></div><div class="sbox"></div><div class="snav"><button class="btn sPrev">Back</button><button class="btn go sNext">Next step</button><button class="btn sPlay">Play all</button></div></div></div>
+
+    <h3 class="sub-h">4. Veins<small>Three bridges between the caval systems and the portal system.</small></h3>
+    <div class="mgrid"><article class="mus full" style="--c:var(--m-ta)">
+      <header><span class="sw"></span><h3>The 3 anastomoses</h3></header>
+      <div class="rowx"><b>1</b><span>Superior and inferior epigastric veins in the sheath: links SVC and IVC</span></div>
+      <div class="rowx"><b>2</b><span>Lateral thoracic vein (to axillary, SVC) with superficial epigastric vein (to great saphenous, IVC)</span></div>
+      <div class="rowx"><b>3</b><span>Systemic veins around the umbilicus with para-umbilical veins: porto-systemic link; enlarged = caput medusae</span></div>
+      <div class="rowx"><b>Lymph</b><span>Above the umbilicus to axillary nodes; below to superficial inguinal nodes</span></div>
+      <p class="ar" lang="ar">ثلاثة جسور وريدية: (1) فوق الشرسوفية العليا والسفلى تربط الأجوف العلوي بالسفلي. (2) الصدرية الجانبية مع فوق الشرسوفية السطحية. (3) أوردة السرة مع الأوردة جانب السرية: رابط بين الباب والجهاز الجهازي، وتضخمه يعطي رأس الميدوزا.</p>
+    </article></div>
+    <div class="drawhd">Draw it: step by step</div><div class="draw drawblk" data-svgs="svgC"><div class="canvas"><svg id="svgC" viewBox="0 0 640 500" role="img" aria-label="Veins of the abdominal wall and the three anastomoses"></svg></div><div class="stepper"><div class="dots"></div><div class="sbox"></div><div class="snav"><button class="btn sPrev">Back</button><button class="btn go sNext">Next step</button><button class="btn sPlay">Play all</button></div></div></div>
+
+    <h3 class="sub-h">5. Inguinal canal<small>About 4 cm long, running medially and downwards between the muscles of the wall.</small></h3>
+    <div class="mgrid">
+      <article class="mus" style="--c:var(--m-eo)">
+        <header><span class="sw"></span><h3>Rings and walls</h3></header>
+        <div class="rowx"><b>Deep ring</b><span>Lateral end; oval opening in the transversalis fascia, 1 cm above the midinguinal point</span></div>
+        <div class="rowx"><b>Superficial ring</b><span>Medial end; triangular opening in the external oblique aponeurosis, above and lateral to the pubic crest</span></div>
+        <div class="rowx"><b>Roof</b><span>Arching fibres of internal oblique and transversus</span></div>
+        <div class="rowx"><b>Floor</b><span>Upper surface of the inguinal ligament</span></div>
+        <div class="rowx"><b>Anterior</b><span>External oblique aponeurosis (all) + internal oblique (lateral 1/3)</span></div>
+        <div class="rowx"><b>Posterior</b><span>Fascia transversalis (all) + conjoint tendon (medial half)</span></div>
+        <div class="rowx"><b>Contents</b><span>Spermatic cord (male) or round ligament (female) + ilio-inguinal nerve (L1*)</span></div>
+        <p class="ar" lang="ar">الحلقة العميقة طرف جانبي في اللفافة المستعرضة فوق نقطة منتصف الأربية بسنتيمتر. الحلقة السطحية الطرف الإنسي في سفاق المائلة الخارجية. السقف: ألياف المائلة الداخلية والمستعرضة. الأرضية: الرباط الأربي. الأمامي: الخارجية + ثلث الداخلية الجانبي. الخلفي: اللفافة المستعرضة + الوتر المشترك في النصف الإنسي.</p>
+      </article>
+    </div>
+    <div class="drawhd">Draw it: step by step</div><div class="draw drawblk" data-svgs="svgD"><div class="canvas"><svg id="svgD" viewBox="0 0 640 570" role="img" aria-label="Inguinal canal with deep and superficial rings, walls and contents"></svg></div><div class="stepper"><div class="dots"></div><div class="sbox"></div><div class="snav"><button class="btn sPrev">Back</button><button class="btn go sNext">Next step</button><button class="btn sPlay">Play all</button></div></div></div>
+
+    <h3 class="sub-h">6. Direct versus indirect hernia<small>Four points each, as written on the board.</small></h3>
+    <div class="mgrid"><article class="mus full" style="--c:var(--h6)">
+      <div class="cmpwrap"><table class="cmp" style="min-width:0"><thead><tr><th style="width:36px"></th><th>Direct</th><th>Indirect</th></tr></thead><tbody>
+        <tr><td><b>1</b></td><td class="pa">Common in old age</td><td class="sy">Common in young age</td></tr>
+        <tr><td><b>2</b></td><td class="pa">Hard to reach the scrotum</td><td class="sy">Easily reaches the scrotum</td></tr>
+        <tr><td><b>3</b></td><td class="pa">Posterior to the cord</td><td class="sy">Inside the spermatic cord</td></tr>
+        <tr><td><b>4</b></td><td class="pa">Medial to the inferior epigastric artery (Hesselbach's triangle*)</td><td class="sy">Lateral to the artery (through the deep ring)</td></tr></tbody></table></div>
+      <p class="ar" lang="ar">المباشر: كبار السن، يصعب وصوله للصفن، خلف الحبل المنوي، إنسي للشريان فوق الشرسوفي السفلي. غير المباشر: صغار السن، يصل الصفن بسهولة، داخل الحبل المنوي، وحشي للشريان ويمر عبر الحلقة العميقة.</p>
+    </article></div>
+    <div class="drawhd">Draw it: step by step</div><div class="draw drawblk" data-svgs="svgE"><div class="canvas"><svg id="svgE" viewBox="0 0 640 500" role="img" aria-label="Direct and indirect inguinal hernia compared"></svg></div><div class="stepper"><div class="dots"></div><div class="sbox"></div><div class="snav"><button class="btn sPrev">Back</button><button class="btn go sNext">Next step</button><button class="btn sPlay">Play all</button></div></div></div>
+
+    <h3 class="sub-h">7. Other hernias<small>Femoral, umbilical, incisional, lumbar, and divarication of the recti.</small></h3>
+    <div class="mgrid">
+      <article class="mus" style="--c:var(--h7)">
+        <header><span class="sw"></span><h3>Femoral versus inguinal</h3></header>
+        <div class="rowx"><b>Sex</b><span>Femoral more common in females; inguinal in males</span></div>
+        <div class="rowx"><b>Tubercle</b><span>Femoral below and lateral to the pubic tubercle; inguinal above and medial</span></div>
+        <div class="rowx"><b>Ligament</b><span>Femoral below the inguinal ligament; inguinal above it</span></div>
+        <p class="ar" lang="ar">الفتق الفخذي أكثر عند الإناث، تحت ووحشي للحدبة العانية وتحت الرباط الأربي. الأربي أكثر عند الذكور، فوق وإنسي للحدبة وفوق الرباط.</p>
+      </article>
+      <article class="mus" style="--c:var(--h6)">
+        <header><span class="sw"></span><h3>Front wall and back</h3></header>
+        <div class="rowx"><b>Umbilical</b><span>Through the linea alba: congenital (loops in the cord), infantile (first 3 years), acquired or para-umbilical (obese adult females)</span></div>
+        <div class="rowx"><b>Incisional</b><span>Through the weak scar of any surgical incision</span></div>
+        <div class="rowx"><b>Divarication of recti</b><span>Stretched linea alba separates the recti (multiple pregnancies, obesity)</span></div>
+        <div class="rowx"><b>Lumbar</b><span>Superior triangle: last rib, erector spinae, internal oblique. Inferior triangle: iliac crest, latissimus dorsi, external oblique</span></div>
+        <p class="ar" lang="ar">السري يمر عبر الخط الأبيض (خلقي، طفولي أول 3 سنوات، مكتسب عند بدينات البالغات). الجراحي عبر ندبة ضعيفة. تباعد المستقيمتين بتمدد الخط الأبيض. القطني عبر المثلث العلوي (الضلع الأخير، الناصبة الفقرية، المائلة الداخلية) أو السفلي (قمة الحرقفة، الظهري العريض، المائلة الخارجية).</p>
+      </article>
+    </div>
+    <div class="drawhd">Draw it: step by step</div><div class="draw drawblk" data-svgs="svgF,svgG"><div class="canvas"><svg id="svgF" viewBox="0 0 640 430" role="img" aria-label="Superior and inferior lumbar triangles"></svg><svg id="svgG" viewBox="0 0 640 440" role="img" aria-label="Divarication of recti, umbilical, incisional and femoral hernias" hidden></svg></div><div class="stepper"><div class="dots"></div><div class="sbox"></div><div class="snav"><button class="btn sPrev">Back</button><button class="btn go sNext">Next step</button><button class="btn sPlay">Play all</button></div></div></div>
+
+    <h3 class="sub-h">8. Stomach<small>Relations, the stomach bed, peritoneal folds and blood supply.</small></h3>
+    <div class="mgrid">
+      <article class="mus" style="--c:var(--m-io)">
+        <header><span class="sw"></span><h3>Relations</h3></header>
+        <div class="rowx"><b>Cardiac end</b><span>In front: left lobe of the liver. Behind: diaphragm</span></div>
+        <div class="rowx"><b>Pyloric end</b><span>In front: quadrate lobe of the liver. Behind: neck of the pancreas</span></div>
+        <div class="rowx"><b>Greater curvature</b><span>Gastro-epiploic vessels, gastrophrenic and gastrosplenic ligaments, greater omentum</span></div>
+        <div class="rowx"><b>Lesser curvature</b><span>Right and left gastric vessels, lesser omentum</span></div>
+        <div class="rowx"><b>Anterior surface (3)</b><span>Anterior abdominal wall, left lobe of the liver, diaphragm</span></div>
+        <p class="ar" lang="ar">الطرف القلبي: أمامه الفص الأيسر للكبد وخلفه الحجاب. الطرف البوابي: أمامه الفص المربع وخلفه عنق البنكرياس. المنحنى الأكبر: أوعية المعدية الثربية والأربطة والثرب الأكبر. المنحنى الأصغر: الأوعية المعدية اليمنى واليسرى والثرب الأصغر. السطح الأمامي (3): جدار البطن والفص الأيسر والحجاب.</p>
+      </article>
+      <article class="mus" style="--c:var(--m-ta)">
+        <header><span class="sw"></span><h3>Stomach bed (7) and folds (4)</h3></header>
+        <div class="rowx"><b>Bed</b><span>Diaphragm, spleen, left suprarenal gland, upper part of the left kidney, pancreas, splenic artery (along the upper border of the pancreas), left colic flexure*. The lesser sac lies between the stomach and its bed</span></div>
+        <div class="rowx"><b>4 folds</b><span>Greater omentum, lesser omentum, gastrophrenic ligament, gastrosplenic ligament</span></div>
+        <div class="rowx"><b>Greater and lesser sac</b><span>In front the greater sac, behind the lesser sac</span></div>
+        <p class="ar" lang="ar">سرير المعدة (7): الحجاب، الطحال، الكظر الأيسر، الجزء العلوي للكلية اليسرى، البنكرياس، الشريان الطحالي، والثنية الكولونية اليسرى*. الكيس الصغير بين المعدة وسريرها. الثنيات الصفاقية الأربع: الثرب الأكبر والأصغر والرباط المعدي الحجابي والرباط المعدي الطحالي.</p>
+      </article>
+      <article class="mus full" style="--c:var(--h7)">
+        <header><span class="sw"></span><h3>Blood supply</h3></header>
+        <div class="rowx"><b>Celiac trunk</b><span>Gives the left gastric, the splenic and the common hepatic arteries</span></div>
+        <div class="rowx"><b>Left gastric</b><span>Upper part of the lesser curvature</span></div>
+        <div class="rowx"><b>Right gastric</b><span>From the hepatic: lower part of the lesser curvature</span></div>
+        <div class="rowx"><b>Right gastro-epiploic</b><span>From the gastroduodenal (a branch of the hepatic): lower greater curvature</span></div>
+        <div class="rowx"><b>Left gastro-epiploic</b><span>From the splenic: upper greater curvature</span></div>
+        <div class="rowx"><b>Short gastric</b><span>About 5, from the splenic to the fundus</span></div>
+        <p class="ar" lang="ar">الجذع البطني يعطي المعدية اليسرى (الجزء العلوي من المنحنى الأصغر)، الطحالية، والكبدية. المعدية اليمنى من الكبدية (الجزء السفلي من المنحنى الأصغر). المعدية الثربية اليمنى من المعدية الاثني عشرية، واليسرى من الطحالية، والمعدية القصيرة (نحو 5) من الطحالية إلى القاع.</p>
+      </article>
+    </div>
+
+    <div class="drawhd">Draw it: step by step</div><div class="draw drawblk" data-svgs="svgH,svgI,svgJ"><div class="canvas"><svg id="svgH" viewBox="0 0 640 500" role="img" aria-label="Stomach with anterior relations and peritoneal folds"></svg><svg id="svgI" viewBox="0 0 640 640" role="img" aria-label="Stomach bed with seven numbered structures" hidden></svg><svg id="svgJ" viewBox="0 0 640 500" role="img" aria-label="Arterial supply of the stomach" hidden></svg></div><div class="stepper"><div class="dots"></div><div class="sbox"></div><div class="snav"><button class="btn sPrev">Back</button><button class="btn go sNext">Next step</button><button class="btn sPlay">Play all</button></div></div></div>
+    <div class="hooks hooks4">
+      <div class="hook"><b>Meet at the navel</b><span>Superior and inferior epigastric arteries and veins join at the umbilicus.</span><p class="ar" lang="ar">الشريانان العلوي والسفلي يلتقيان عند السرة.</p></div>
+      <div class="hook"><b>Three vein bridges</b><span>Epigastric; lateral thoracic with superficial epigastric; umbilical with portal.</span><p class="ar" lang="ar">ثلاثة جسور وريدية.</p></div>
+      <div class="hook"><b>Direct is medial</b><span>Direct: old, medial to the artery, behind the cord. Indirect: young, lateral, inside the cord.</span><p class="ar" lang="ar">المباشر إنسي والكبار؛ غير المباشر وحشي والصغار.</p></div>
+      <div class="hook"><b>Stomach 3, 4, 7</b><span>3 anterior relations, 4 peritoneal folds, 7 in the bed.</span><p class="ar" lang="ar">3 أمامية، 4 ثنيات، 7 في السرير.</p></div>
+    </div>
+
+    <details class="key"><summary>Board reading notes: check with your lecturer</summary>
+      <p class="note-s">* "(LT)" beside the ilio-inguinal nerve was read as L1. The board lists "+ 1st lumbar" among sheath contents, which differs from the PDF. Stomach-bed items 6 and 7 were hard to read, so the PDF list is used. "Pyramidalis ??" is inconstant. The "lat. Th." on the arterial frame is read as lateral thoracic. Hesselbach's triangle and the mnemonics are additions. The Arabic words on the incisional-hernia label were not transcribed.</p>
+    </details>
+
+    <div class="rtab blind" style="margin-top:20px">
+      <div class="rtab-h"><h3>Recall sheet: tap a blurred cell to reveal</h3><button class="btn rtBtn">Show all answers</button></div>
+      <div class="tw"><table style="min-width:520px"><thead><tr><th>Ask yourself</th><th>Answer</th></tr></thead><tbody>
+        <tr><td class="m">Sheath above the costal margin</td><td class="rv">Anterior: external oblique; posterior: costal cartilages 5, 6, 7</td></tr>
+        <tr><td class="m">Sheath below the midway level</td><td class="rv">Anterior: 3 aponeuroses; posterior: fascia transversalis</td></tr>
+        <tr><td class="m">5 contents of the sheath</td><td class="rv">Rectus, pyramidalis, superior and inferior epigastric vessels, lower 6 thoracic nerves</td></tr>
+        <tr><td class="m">Dermatomes</td><td class="rv">T7 xiphoid, T10 umbilicus, L1 groin</td></tr>
+        <tr><td class="m">Epigastric arteries: sources</td><td class="rv">Superior from internal thoracic; inferior from external iliac</td></tr>
+        <tr><td class="m">3 venous anastomoses</td><td class="rv">Epigastric; lateral thoracic + superficial epigastric; umbilical + para-umbilical (caput medusae)</td></tr>
+        <tr><td class="m">Deep and superficial rings</td><td class="rv">Deep: transversalis fascia; superficial: external oblique aponeurosis</td></tr>
+        <tr><td class="m">Roof, floor, posterior wall</td><td class="rv">Internal oblique and transversus arch; inguinal ligament; fascia transversalis + conjoint tendon</td></tr>
+        <tr><td class="m">Indirect hernia: 4 points</td><td class="rv">Young, reaches scrotum, inside the cord, lateral to the artery</td></tr>
+        <tr><td class="m">Direct hernia: 4 points</td><td class="rv">Old, hard to reach scrotum, behind the cord, medial to the artery</td></tr>
+        <tr><td class="m">Femoral hernia position</td><td class="rv">Below the ligament; below and lateral to the pubic tubercle</td></tr>
+        <tr><td class="m">Lumbar triangles</td><td class="rv">Superior: last rib, erector spinae, int. oblique. Inferior: iliac crest, lat. dorsi, ext. oblique</td></tr>
+        <tr><td class="m">Stomach anterior relations (3)</td><td class="rv">Abdominal wall, left liver lobe, diaphragm</td></tr>
+        <tr><td class="m">Stomach bed (7) and folds (4)</td><td class="rv">Diaphragm, spleen, suprarenal, left kidney, pancreas, splenic artery, left colic flexure; greater and lesser omentum, gastrophrenic, gastrosplenic</td></tr>
+        <tr><td class="m">Arteries of the stomach</td><td class="rv">Celiac: left gastric, hepatic (right gastric, gastroduodenal, right gastro-epiploic), splenic (left gastro-epiploic, short gastrics)</td></tr>
+      </tbody></table></div>
+    </div>
+
+  </section>
+
+  <section class="sec" id="s-cards">
+    <div class="sec-h"><h2>Question cards</h2><p>Read the question, answer aloud, then tap the card. Rate yourself honestly; "Review" cards come back first.</p></div>
+    <div class="deck-top"><div class="chips" id="dchips"></div><div class="score" id="score"></div></div>
+    <div class="pbar"><i id="dbar" style="width:0%"></i></div>
+    <div class="flip" id="flip"><div class="inner" id="inner"></div></div>
+    <div class="rate"><button class="btn rev" id="rRev" disabled>Review again</button><button class="btn got" id="rGot" disabled>Got it</button></div>
+    <div class="dnav"><button class="btn" id="dPrev">Previous</button><button class="btn" id="dShuf">Shuffle</button><button class="btn" id="dRev">Only review cards</button><button class="btn" id="dNext">Next</button></div>
+  </section>
+
+  <p class="foot">Source: your 8 whiteboard photos (DHB 202-1) and your anatomy PDF (DHB_MID_ANAT_2). Items marked * are added standard facts or readings of the board I could not confirm. Arabic text explains the English content, which stays in English as your exam will be.</p>
+</div>
+<script>
+/* ===== svg kit ===== */
+const $=s=>document.querySelector(s),pad=n=>String(n).padStart(2,'0');
+/* label block with optional leader line. o: {a:'start'|'end'|'middle', col:'--h1', lx, ly} */
+function lb(x,y,head,subs,tx,ty,o){
+  o=o||{};subs=[].concat(subs||[]);const a=o.a||'start';
+  const lines=head?[head].concat(subs):subs;
+  let g='';
+  if(tx!=null){
+    const lx=o.lx!=null?o.lx:(a==='end'?x+4:(a==='start'?x-4:x));
+    const ly=o.ly!=null?o.ly:(a==='middle'?y+15*(lines.length-1)+7:y-4);
+    g+=`<line x1="${lx}" y1="${ly}" x2="${tx}" y2="${ty}"/><circle cx="${tx}" cy="${ty}" r="2.6"/>`;
+  }
+  lines.forEach((s,i)=>{
+    const isHead=head&&i===0;
+    g+=`<text${isHead?'':' class="sub"'} x="${x}" y="${y+15*i}" text-anchor="${a}"${isHead&&o.col?` style="fill:var(${o.col})"`:''}>${s}</text>`;
+  });
+  return `<g class="lab">${g}</g>`;
+}
+/* animated stroke path (arrow or plain) */
+const pth=(d,col,extra)=>`<path class="dr arrowp" pathLength="1" style="stroke:var(${col})" d="${d}" ${extra||''}/>`;
+/* sketch outline that draws itself */
+const sk=(d,cls,style)=>`<path class="sk dr ${cls||''}" pathLength="1" ${style?`style="${style}"`:''} d="${d}"/>`;
+/* soft fill that fades in */
+const fl=(d,col,pct)=>`<path class="fl" style="fill:color-mix(in srgb,var(${col}) ${pct||14}%,transparent);stroke:none" d="${d}"/>`;
+/* arrow / T-bar markers */
+const mk=(id,col,t)=>t
+  ?`<marker id="${id}" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M5 0V10" style="stroke:var(${col});stroke-width:2.6;fill:none"/></marker>`
+  :`<marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" style="fill:var(${col})"/></marker>`;
+/* numbered circle marker (draws on the sketch) */
+const mkc=(n,x,y,col)=>`<circle cx="${x}" cy="${y}" r="10" style="fill:var(--surface);stroke:var(${col});stroke-width:2.6"/><text x="${x}" y="${y+4}" text-anchor="middle" style="font:700 12px var(--f-body);fill:var(--ink)">${n}</text>`;
+/* numbered key row (legend), part of a layer's labels */
+const keyRow=(n,y,col,name,desc)=>`<g class="lab"><circle cx="22" cy="${y-4}" r="8.5" style="fill:var(--surface);stroke:var(${col});stroke-width:2.2"/><text x="22" y="${y}" text-anchor="middle" style="font:700 11px var(--f-body);fill:var(--ink)">${n}</text><text x="40" y="${y}" style="fill:var(${col});font:700 13px var(--f-body)">${name}</text><text x="${desc[0]}" y="${y}" class="sub">${desc[1]}</text></g>`;
+const Ly=(id,inner)=>`<g class="layer" id="${id}">${inner}</g>`;
+const Tr=(x,y,inner)=>`<g transform="translate(${x},${y})">${inner}</g>`;
+const plain=(x,y,s,o)=>{o=o||{};return `<text x="${x}" y="${y}" class="${o.sub?'sub':''}" text-anchor="${o.a||'start'}"${o.col?` style="fill:var(${o.col})"`:''}>${s}</text>`};
+
+const PAGE={lsk:'board-v1',totalMin:90,idle:'Open the board photos next to this page and press Start.'};
+const STEPS=[
+ {a:0,b:5,t:'Look at the route',en:'Read only the 8 part titles. Say aloud the board counts: 5 contents of the sheath, 3 anterior relations, 4 peritoneal folds, 7 in the stomach bed.',ar:'اقرأ عناوين الأجزاء الثمانية فقط. قُل بصوت عالٍ الأرقام المكتوبة على السبورة: 5 محتويات للغمد، 3 علاقات أمامية، 4 ثنيات صفاقية، 7 في سرير المعدة.'},
+ {a:5,b:22,t:'Abdominal wall: sheath, nerves, vessels',en:'Parts 1 to 4. Read each, close the page, then write the lists from memory: sheath contents, T7 to L1, arterial sources, the three vein links.',ar:'الأجزاء من 1 إلى 4. اقرأ كل جزء ثم أغلق الصفحة واكتب القوائم من الذاكرة: محتويات الغمد، T7 إلى L1، مصادر الشرايين، الروابط الوريدية الثلاثة.'},
+ {a:22,b:38,t:'Inguinal canal and hernias',en:'Parts 5 to 7. Walls and rings of the canal first, then the direct versus indirect table (4 points each), then the other hernias.',ar:'الأجزاء من 5 إلى 7. جدران وحلقتا القناة أولًا، ثم جدول الفتق المباشر مقابل غير المباشر (4 نقاط لكل منهما)، ثم باقي أنواع الفتق.'},
+ {a:38,b:42,t:'Break',en:'4 minutes. Phone away, water, stretch.',ar:'استرح 4 دقائق، وابتعد عن الهاتف واشرب ماءً وتحرك.'},
+ {a:42,b:54,t:'Stomach: relations and blood supply',en:'Part 8. Count the relations (3, 4, 7), then name every artery and say which trunk it comes from.',ar:'الجزء 8. عُدّ العلاقات (3 و4 و7) ثم سمِّ كل شريان وقل من أي جذع يأتي.'},
+ {a:54,b:76,t:'Redraw the board',en:'Use the "Draw it" block under each part. Redraw each picture from memory before looking at the step, then correct with a different colour pen.',ar:'استخدم خطوات الرسم. أعد رسم كل صورة من الذاكرة قبل أن تنظر إلى الخطوة، ثم صحِّح بقلم بلون مختلف.'},
+ {a:76,b:86,t:'Question cards',en:'Answer aloud. Mark every miss as Review, and shuffle once so topics mix.',ar:'أجب بصوت عالٍ، وعلّم كل خطأ بكلمة Review، واخلط البطاقات مرة واحدة.'},
+ {a:86,b:90,t:'Log the gaps',en:'In your Study Log write what you could not draw or list, and when you will see it again.',ar:'اكتب في سجل المذاكرة ما عجزت عن رسمه أو سرده، ومتى ستراجعه مرة أخرى.'}
+];
+const DRAW=[
+ {svg:'svgA',layer:'A1',k:'1 · Nerves',t:'Segmental nerve supply',
+  en:'Draw the front of the abdominal wall: the costal margins meeting at the xiphoid, two side lines, and the groin lines meeting at the pubic symphysis. Mark the umbilicus. Add two dashed lines to make three bands, then a vertical arrow with T7, T9, T10 (umbilicus), T11, ending in a circle at L1.',
+  ar:'ارسم مقدمة جدار البطن: الحافتان الضلعيتان تلتقيان عند الناتئ الخنجري، وخطان جانبيان، وخطا الأربية يلتقيان عند الارتفاق العاني. علّم السرة. أضف خطين متقطعين لتكوين ثلاثة نطاقات، ثم سهمًا عموديًا عليه T7 وT9 وT10 (السرة) وT11، وينتهي بدائرة عند L1.'},
+ {svg:'svgB',layer:'B1',k:'2 · Arteries',t:'The two epigastric arteries',
+  en:'Redraw the wall with the linea alba and the umbilicus. In red draw the superior epigastric (from the internal thoracic) coming down and the inferior epigastric (from the external iliac) going up, both inside the rectus. Circle the point where they meet: the level of the umbilicus.',
+  ar:'أعد رسم الجدار مع الخط الأبيض (Linea alba) والسرة. بالأحمر ارسم الشريان الشرسوفي العلوي (من الصدري الباطن) نازلًا والشرسوفي السفلي (من الحرقفي الظاهر) صاعدًا، كلاهما داخل المستقيم. ضع دائرة عند نقطة التقائهما: مستوى السرة.'},
+ {svg:'svgB',layer:'B2',k:'2 · Arteries',t:'Lateral supply',
+  en:'Add four short arrows from the side: intercostal (10th, 11th) with the lateral thoracic, subcostal, the four lumbar arteries (all from the aorta), and the deep circumflex iliac (from the external iliac).',
+  ar:'أضف أربعة أسهم قصيرة من الجانب: الوربيان (العاشر والحادي عشر) مع الصدري الجانبي، تحت الضلعي، الشرايين القطنية الأربعة (كلها من الأبهر)، والحرقفي المحيط العميق (من الحرقفي الظاهر).'},
+ {svg:'svgC',layer:'C1',k:'3 · Veins',t:'Epigastric veins: SVC to IVC',
+  en:'Draw an SVC box at the top left and an IVC box at the bottom left. Draw the superior epigastric vein running up to the SVC (through the internal thoracic) and the inferior epigastric vein running down to the IVC (through the external iliac). Where they meet inside the sheath is anastomosis 1.',
+  ar:'ارسم مربع SVC أعلى اليسار ومربع IVC أسفل اليسار. ارسم الوريد الشرسوفي العلوي صاعدًا إلى SVC (عبر الصدري الباطن) والوريد الشرسوفي السفلي نازلًا إلى IVC (عبر الحرقفي الظاهر). التقاؤهما داخل الغمد هو الارتباط الأول.'},
+ {svg:'svgC',layer:'C2',k:'3 · Veins',t:'Lateral veins: SVC to IVC',
+  en:'On the side of the wall add the lateral thoracic vein (up to the axillary vein, then SVC) and the superficial epigastric vein (down to the great saphenous vein, then IVC). Where they meet is anastomosis 2.',
+  ar:'على جانب الجدار أضف الوريد الصدري الجانبي (صعودًا إلى الإبطي ثم SVC) والوريد الشرسوفي السطحي (نزولًا إلى الصافن الكبير ثم IVC). التقاؤهما هو الارتباط الثاني.'},
+ {svg:'svgC',layer:'C3',k:'3 · Veins',t:'Umbilical link: portal to caval',
+  en:'At the umbilicus draw small radiating veins. Add a box for the portal vein, joined through the para-umbilical veins: anastomosis 3, the portosystemic link. When these veins dilate, caput medusae appears.',
+  ar:'عند السرة ارسم أوردة صغيرة متشعبة. أضف مربعًا للوريد البابي موصولًا عبر الأوردة جانب السرية: الارتباط الثالث وهو الرابط البابي الجهازي. عند توسع هذه الأوردة يظهر رأس الميدوزا (Caput medusae).'},
+ {svg:'svgD',layer:'D1',k:'4 · Inguinal canal',t:'The canal and its two rings',
+  en:'Draw a slanting band from upper right (lateral) to lower left (medial). At the upper end draw the deep ring (oval, in the transversalis fascia). At the lower end draw the superficial ring (triangular opening in the external oblique aponeurosis, above and lateral to the pubic crest).',
+  ar:'ارسم شريطًا مائلًا من أعلى اليمين (جانبي) إلى أسفل اليسار (إنسي). في الطرف العلوي ارسم الحلقة العميقة (بيضاوية في اللفافة المستعرضة). في الطرف السفلي ارسم الحلقة السطحية (فتحة مثلثة في سفاق المائل الظاهر، فوق وجانب العانة).'},
+ {svg:'svgD',layer:'D2',k:'4 · Inguinal canal',t:'The four walls',
+  en:'Roof: red arcs of internal oblique and transversus abdominis. Floor: a thick line for the inguinal ligament. Posterior wall: a dashed line for transversalis fascia along the whole canal, and hatching for the conjoint tendon medially. Anterior wall: external oblique aponeurosis (whole length) plus internal oblique laterally.',
+  ar:'السقف: أقواس حمراء من المائل الباطن والمستعرض البطني. القاع: خط سميك للرباط الإربي. الجدار الخلفي: خط متقطع للفافة المستعرضة على طول القناة، وتهشير للوتر المشترك في الجهة الإنسية. الجدار الأمامي: سفاق المائل الظاهر (على الطول كله) مع المائل الباطن في الجهة الجانبية.'},
+ {svg:'svgD',layer:'D3',k:'4 · Inguinal canal',t:'What passes through',
+  en:'Draw a thick line through the canal from the deep ring to the superficial ring: the spermatic cord in the male, the round ligament of the uterus in the female. Add the ilio-inguinal nerve beside it.',
+  ar:'ارسم خطًا سميكًا عبر القناة من الحلقة العميقة إلى السطحية: الحبل المنوي عند الذكر، والرباط المدور للرحم عند الأنثى. أضف العصب الحرقفي الإربي بجانبه.'},
+ {svg:'svgE',layer:'E1',k:'5 · Inguinal hernia',t:'Landmarks and the direct hernia',
+  en:'Draw the lateral border of the rectus, the inguinal ligament (pubic tubercle to ASIS), the inferior epigastric artery rising from its middle, the deep ring lateral to the artery, and the scrotum below. Shade the area medial to the artery. Direct hernia: arrow through that area that stops at the superficial ring; then write its 4 points.',
+  ar:'ارسم الحافة الجانبية للمستقيم، والرباط الإربي (من الحدبة العانية إلى الشوكة الحرقفية الأمامية العلوية)، والشريان الشرسوفي السفلي صاعدًا من منتصفه، والحلقة العميقة جانب الشريان، والصفن أسفل. ظلّل المنطقة الإنسية للشريان. الفتق المباشر: سهم عبر هذه المنطقة يتوقف عند الحلقة السطحية؛ ثم اكتب نقاطه الأربع.'},
+ {svg:'svgE',layer:'E2',k:'5 · Inguinal hernia',t:'The indirect hernia',
+  en:'Indirect hernia: arrow from the deep ring (lateral to the artery), along the canal inside the spermatic cord, out of the superficial ring and into the scrotum. Then write its 4 points.',
+  ar:'الفتق غير المباشر: سهم من الحلقة العميقة (جانب الشريان)، عبر القناة داخل الحبل المنوي، ثم يخرج من الحلقة السطحية إلى الصفن. ثم اكتب نقاطه الأربع.'},
+ {svg:'svgF',layer:'F1',k:'6 · Lumbar hernias',t:'Two lumbar triangles',
+  en:'On the back draw two triangles. Superior lumbar: last rib above, erector spinae medially, internal oblique laterally. Inferior lumbar: iliac crest below, latissimus dorsi medially, external oblique laterally.',
+  ar:'على الظهر ارسم مثلثين. المثلث القطني العلوي: الضلع الأخير فوق، والناصبة الشوكية إنسيًا، والمائل الباطن جانبيًا. المثلث القطني السفلي: العرف الحرقفي تحت، والظهري العريض إنسيًا، والمائل الظاهر جانبيًا.'},
+ {svg:'svgG',layer:'G1',k:'6 · Other hernias',t:'Four more defects of the front wall',
+  en:'On a fresh abdominal wall draw: divarication of recti (the two rectus bellies apart along a stretched linea alba), umbilical hernia at the umbilicus, incisional hernia at a surgical scar, and femoral hernia below the inguinal ligament, below and lateral to the pubic tubercle.',
+  ar:'على جدار بطن جديد ارسم: تباعد المستقيمين (Divarication) حيث يتباعد المستقيمان مع تمدد الخط الأبيض، الفتق السري عند السرة، الفتق الجراحي عند ندبة جراحية، والفتق الفخذي أسفل الرباط الإربي وأسفل وجانب الحدبة العانية.'},
+ {svg:'svgH',layer:'H1',k:'7 · Stomach',t:'Shape and the 3 anterior relations',
+  en:'Draw a J-shaped stomach with the oesophagus entering and the pylorus leading to the duodenum. Add its three anterior relations: the diaphragm above, the left lobe of the liver, and the anterior abdominal wall in front.',
+  ar:'ارسم معدة على شكل حرف J والمريء داخل إليها والبواب يؤدي إلى الاثني عشر. أضف علاقاتها الأمامية الثلاث: الحجاب الحاجز في الأعلى، الفص الأيسر للكبد، وجدار البطن الأمامي.'},
+ {svg:'svgH',layer:'H2',k:'7 · Stomach',t:'The 4 peritoneal folds',
+  en:'Add the four peritoneal attachments: lesser omentum (liver to lesser curvature), gastrophrenic ligament (fundus to diaphragm), gastrosplenic ligament (greater curvature to spleen) and the greater omentum hanging from the greater curvature.',
+  ar:'أضف الارتباطات الصفاقية الأربعة: الثرب الصغير (من الكبد إلى الانحناء الصغير)، الرباط المعدي الحجابي (من القاع إلى الحجاب)، الرباط المعدي الطحالي (من الانحناء الكبير إلى الطحال)، والثرب الكبير المتدلي من الانحناء الكبير.'},
+ {svg:'svgI',layer:'I1',k:'7 · Stomach bed',t:'Stomach bed: 1 to 4',
+  en:'Draw the bed behind the stomach from top down: (1) diaphragm, (2) splenic artery running along the upper border of the pancreas, (3) left suprarenal gland, (4) spleen.',
+  ar:'ارسم السرير خلف المعدة من الأعلى للأسفل: (1) الحجاب الحاجز، (2) الشريان الطحالي على الحافة العلوية للبنكرياس، (3) الغدة الكظرية اليسرى، (4) الطحال.'},
+ {svg:'svgI',layer:'I2',k:'7 · Stomach bed',t:'Stomach bed: 5 to 7 and the lesser sac',
+  en:'Add (5) pancreas, (6) upper part of the left kidney, (7) transverse colon (left colic flexure and transverse mesocolon*). Then mark the lesser sac: the space between the stomach and its bed.',
+  ar:'أضف (5) البنكرياس، (6) الجزء العلوي للكلية اليسرى، (7) القولون المستعرض (الثنية القولونية اليسرى والمساريق المستعرض*). ثم علّم الكيس الصفاقي الصغير: الحيّز بين المعدة وسريرها.'},
+ {svg:'svgJ',layer:'J1',k:'8 · Blood supply',t:'Celiac trunk and the lesser curvature',
+  en:'Draw the celiac trunk with its three branches: left gastric (down to the upper lesser curvature), hepatic (to the pylorus, where the right gastric supplies the lower lesser curvature) and splenic (across to the spleen).',
+  ar:'ارسم الجذع الزليقي (Celiac trunk) بفروعه الثلاثة: المعدي الأيسر (نزولًا إلى الجزء العلوي من الانحناء الصغير)، الكبدي (إلى البواب حيث يغذي المعدي الأيمن الجزء السفلي من الانحناء الصغير)، والطحالي (عبورًا إلى الطحال).'},
+ {svg:'svgJ',layer:'J2',k:'8 · Blood supply',t:'Greater curvature and the fundus',
+  en:'Along the greater curvature draw the right gastro-epiploic (from the gastroduodenal, a branch of the hepatic) on the right and the left gastro-epiploic (from the splenic) on the left. Add the five short gastric arteries (from the splenic) to the fundus.',
+  ar:'على طول الانحناء الكبير ارسم الشريان المعدي الثربي الأيمن (من المعدي الاثني عشري وهو فرع من الكبدي) على اليمين، والمعدي الثربي الأيسر (من الطحالي) على اليسار. أضف الشرايين المعدية القصيرة الخمسة (من الطحالي) إلى القاع.'}
+];
+
+const CARDS=[
+ {ty:'Recall',q:'What forms the rectus sheath?',a:'The aponeuroses of external oblique, internal oblique and transversus abdominis.',ar:'سفاقات المائلة الخارجية والداخلية والمستعرضة البطنية.'},
+ {ty:'Recall',q:'Walls of the sheath above the costal margin?',a:'<ul><li>Anterior: external oblique aponeurosis only.</li><li>Posterior: chest wall (costal cartilages 5, 6, 7).</li></ul>',ar:'الأمامي: المائلة الخارجية فقط. الخلفي: جدار الصدر.'},
+ {ty:'Recall',q:'Walls of the sheath from the costal margin to midway between umbilicus and pubic symphysis?',a:'<ul><li>Anterior: external oblique + anterior lamina of internal oblique.</li><li>Posterior: transversus aponeurosis + posterior lamina of internal oblique.</li></ul>',ar:'الأمامي: الخارجية + الصفيحة الأمامية للداخلية. الخلفي: المستعرضة + الصفيحة الخلفية.'},
+ {ty:'Recall',q:'Walls of the sheath below the midway level?',a:'<ul><li>Anterior: all 3 aponeuroses.</li><li>Posterior: fascia transversalis.</li></ul>',ar:'الأمامي: السفاقات الثلاثة. الخلفي: اللفافة المستعرضة.'},
+ {ty:'Recall',q:'List the 5 contents of the rectus sheath.',a:'<ul><li>Rectus abdominis</li><li>Pyramidalis (inconstant*)</li><li>Superior epigastric vessels</li><li>Inferior epigastric vessels</li><li>Lower 6 thoracic nerves</li></ul>',ar:'المستقيمة، الهرمية، الأوعية العلوية، الأوعية السفلية، الأعصاب الصدرية الستة.'},
+ {ty:'Recall',q:'How do the epigastric vessels and the thoracic nerves enter the sheath?',a:'Through the posterior wall.',ar:'من الجدار الخلفي.'},
+ {ty:'Clinical',q:'The board lists "1st lumbar" as a sheath content. Does the PDF agree?',a:'No. The ilio-hypogastric and ilio-inguinal branches of L1 do not enter the sheath. Follow the PDF*.',ar:'لا. فروع L1 لا تدخل الغمد. اتبع الملف.'},
+ {ty:'Recall',q:'Which spinal segments supply the anterior abdominal wall?',a:'Lower 6 thoracic nerves (T7 to T12) and L1.',ar:'T7 إلى T12 وL1.'},
+ {ty:'Recall',q:'Dermatome landmarks: xiphoid, umbilicus, groin?',a:'T7, T10, L1.',ar:'الخنجري T7، السرة T10، الأربية L1.'},
+ {ty:'Recall',q:'Skin below the umbilicus is supplied by which segments?',a:'T11, T12 and L1.',ar:'T11 وT12 وL1.'},
+ {ty:'Recall',q:'Origin of the superior epigastric artery?',a:'Internal thoracic artery.',ar:'الشريان الصدري الباطن.'},
+ {ty:'Recall',q:'Origin of the inferior epigastric artery?',a:'External iliac artery.',ar:'الشريان الحرقفي الظاهر.'},
+ {ty:'Recall',q:'Where do the two epigastric arteries meet?',a:'At the level of the umbilicus, inside the rectus sheath.',ar:'عند مستوى السرة داخل الغمد.'},
+ {ty:'Recall',q:'Name the lateral arteries of the wall.',a:'<ul><li>Intercostal (10th, 11th) and lateral thoracic*</li><li>Subcostal</li><li>4 lumbar arteries (aorta)</li><li>Deep circumflex iliac (external iliac)</li></ul>',ar:'الوربيتان 10 و11، تحت الضلع، 4 قطنية، الحرقفي المنعطف العميق.'},
+ {ty:'Recall',q:'Where do the superior and inferior epigastric veins drain?',a:'Superior: internal thoracic vein. Inferior: external iliac vein.',ar:'العلوي إلى الصدري الباطن، والسفلي إلى الحرقفي الظاهر.'},
+ {ty:'Recall',q:'Name the 3 venous anastomoses of the wall.',a:'<ol><li>Superior + inferior epigastric veins (SVC with IVC)</li><li>Lateral thoracic + superficial epigastric veins</li><li>Umbilical systemic veins + para-umbilical veins (portal with caval)</li></ol>',ar:'العلوية والسفلية، الصدرية الجانبية مع السطحية، وأوردة السرة مع جانب السرة.'},
+ {ty:'Clinical',q:'What is caput medusae and why does it occur?',a:'Dilated veins around the umbilicus: the para-umbilical porto-systemic link enlarges when portal flow is obstructed.',ar:'توسع أوردة حول السرة لأن رابط الباب والجهاز الجهازي يتضخم مع انسداد الباب.'},
+ {ty:'Recall',q:'Lymph drainage of the anterior abdominal wall?',a:'Above the umbilicus: axillary nodes. Below: superficial inguinal nodes.',ar:'فوق السرة للإبطية، وتحتها للأربية السطحية.'},
+ {ty:'Recall',q:'Length and direction of the inguinal canal?',a:'About 4 cm, medially and downwards.',ar:'نحو 4 سم، للإنسي والأسفل.'},
+ {ty:'Recall',q:'Describe the deep inguinal ring.',a:'Lateral end; oval opening in the transversalis fascia, 1 cm above the midinguinal point.',ar:'الطرف الوحشي؛ فتحة بيضاوية في اللفافة المستعرضة.'},
+ {ty:'Recall',q:'Describe the superficial inguinal ring.',a:'Medial end; triangular opening in the external oblique aponeurosis, above and lateral to the pubic crest.',ar:'الطرف الإنسي؛ فتحة مثلثة في سفاق المائلة الخارجية.'},
+ {ty:'Recall',q:'Roof and floor of the canal?',a:'Roof: arching fibres of internal oblique and transversus. Floor: upper surface of the inguinal ligament.',ar:'السقف ألياف الداخلية والمستعرضة، والأرضية الرباط الأربي.'},
+ {ty:'Recall',q:'Anterior wall of the canal?',a:'External oblique aponeurosis (whole length) + fleshy internal oblique (lateral 1/3).',ar:'سفاق الخارجية + الثلث الوحشي للداخلية.'},
+ {ty:'Recall',q:'Posterior wall of the canal?',a:'Fascia transversalis (whole length) + conjoint tendon (medial half).',ar:'اللفافة المستعرضة + الوتر المشترك في النصف الإنسي.'},
+ {ty:'Recall',q:'Contents of the inguinal canal?',a:'Spermatic cord (male) or round ligament of the uterus (female) + ilio-inguinal nerve (L1*).',ar:'الحبل المنوي أو الرباط المدور + العصب الحرقفي الأربي.'},
+ {ty:'Compare',q:'Direct versus indirect hernia: age?',a:'Direct: old age. Indirect: young age.',ar:'المباشر للكبار، وغير المباشر للصغار.'},
+ {ty:'Compare',q:'Direct versus indirect: reaching the scrotum?',a:'Direct: hard to reach. Indirect: easily reaches.',ar:'المباشر يصعب وصوله للصفن، وغير المباشر يصله بسهولة.'},
+ {ty:'Compare',q:'Direct versus indirect: relation to the spermatic cord?',a:'Direct: posterior to the cord. Indirect: inside the cord.',ar:'المباشر خلف الحبل، وغير المباشر داخله.'},
+ {ty:'Compare',q:'Direct versus indirect: relation to the inferior epigastric artery?',a:'Direct: medial. Indirect: lateral (through the deep ring).',ar:'المباشر إنسي، وغير المباشر وحشي.'},
+ {ty:'Clinical',q:'Which hernia passes through the deep ring?',a:'Indirect inguinal hernia.',ar:'الفتق غير المباشر.'},
+ {ty:'Recall',q:'What is Hesselbach\'s triangle*?',a:'Area medial to the inferior epigastric artery, above the inguinal ligament, lateral to the rectus border. Direct hernias come through it.',ar:'منطقة إنسي الشريان فوق الشرسوفي السفلي وفوق الرباط الأربي؛ منها يخرج الفتق المباشر.'},
+ {ty:'Compare',q:'Femoral versus inguinal hernia: sex?',a:'Femoral: more common in females. Inguinal: males.',ar:'الفخذي للإناث، والأربي للذكور.'},
+ {ty:'Compare',q:'Femoral versus inguinal: position to the pubic tubercle?',a:'Femoral: below and lateral. Inguinal: above and medial.',ar:'الفخذي تحت ووحشي، والأربي فوق وإنسي.'},
+ {ty:'Compare',q:'Femoral versus inguinal: position to the inguinal ligament?',a:'Femoral: below. Inguinal: above.',ar:'الفخذي تحت الرباط والأربي فوقه.'},
+ {ty:'Recall',q:'Route of a femoral hernia?',a:'Femoral canal, femoral ring, then the saphenous opening to the front of the thigh.',ar:'القناة الفخذية ثم الحلقة ثم الفتحة الصافنة.'},
+ {ty:'Recall',q:'Types of umbilical hernia?',a:'<ul><li>Congenital: loops herniate into the cord</li><li>Infantile: stretched scar, first 3 years</li><li>Acquired (para-umbilical): above the umbilicus, obese adult females</li></ul>',ar:'خلقي، طفولي (أول 3 سنوات)، مكتسب جانب سري عند بدينات البالغات.'},
+ {ty:'Recall',q:'What is an incisional hernia?',a:'A hernia through the weak scar of any surgical incision.',ar:'فتق عبر ندبة جراحية ضعيفة.'},
+ {ty:'Recall',q:'What is divarication of the recti?',a:'Separation of the two recti by a stretched linea alba (multiple pregnancies, obesity); swelling above or below the umbilicus.',ar:'تباعد المستقيمتين بتمدد الخط الأبيض.'},
+ {ty:'Recall',q:'Boundaries of the superior lumbar triangle?',a:'Last (12th) rib, erector spinae, internal oblique.',ar:'الضلع الأخير، الناصبة الفقرية، المائلة الداخلية.'},
+ {ty:'Recall',q:'Boundaries of the inferior lumbar triangle?',a:'Iliac crest, latissimus dorsi, external oblique.',ar:'قمة الحرقفة، الظهري العريض، المائلة الخارجية.'},
+ {ty:'Recall',q:'Relations of the cardiac end of the stomach?',a:'In front: left lobe of the liver. Behind: diaphragm.',ar:'أمامه الفص الأيسر للكبد وخلفه الحجاب.'},
+ {ty:'Recall',q:'Relations of the pyloric end?',a:'In front: quadrate lobe of the liver. Behind: neck of the pancreas.',ar:'أمامه الفص المربع وخلفه عنق البنكرياس.'},
+ {ty:'Recall',q:'Structures related to the greater curvature?',a:'Gastro-epiploic vessels, gastrophrenic and gastrosplenic ligaments, greater omentum.',ar:'الأوعية المعدية الثربية والرباطان والثرب الأكبر.'},
+ {ty:'Recall',q:'Structures related to the lesser curvature?',a:'Right and left gastric vessels, lesser omentum.',ar:'الأوعية المعدية اليمنى واليسرى والثرب الأصغر.'},
+ {ty:'Recall',q:'Anterior relations of the stomach (3)?',a:'Anterior abdominal wall, left lobe of the liver, diaphragm.',ar:'جدار البطن، الفص الأيسر، الحجاب.'},
+ {ty:'Recall',q:'List the stomach bed.',a:'<ul><li>Diaphragm</li><li>Spleen</li><li>Left suprarenal gland</li><li>Upper left kidney</li><li>Pancreas</li><li>Splenic artery (upper border of the pancreas)</li><li>Left colic flexure*</li></ul>',ar:'الحجاب، الطحال، الكظر الأيسر، الكلية اليسرى، البنكرياس، الشريان الطحالي، الثنية الكولونية.'},
+ {ty:'Recall',q:'Where is the lesser sac?',a:'Between the stomach and its bed.',ar:'بين المعدة وسريرها.'},
+ {ty:'Recall',q:'The 4 peritoneal folds attached to the stomach?',a:'Greater omentum, lesser omentum, gastrophrenic ligament, gastrosplenic ligament.',ar:'الثرب الأكبر والأصغر والرباطان.'},
+ {ty:'Recall',q:'Branches of the celiac trunk to the stomach?',a:'Left gastric, splenic, and common hepatic arteries.',ar:'المعدية اليسرى، الطحالية، الكبدية.'},
+ {ty:'Recall',q:'Which artery supplies the upper part of the lesser curvature?',a:'Left gastric (from the celiac trunk).',ar:'المعدية اليسرى.'},
+ {ty:'Recall',q:'Which artery supplies the lower part of the lesser curvature?',a:'Right gastric (from the hepatic).',ar:'المعدية اليمنى من الكبدية.'},
+ {ty:'Recall',q:'Origin of the right gastro-epiploic artery?',a:'Gastroduodenal artery (a branch of the hepatic).',ar:'من المعدية الاثني عشرية.'},
+ {ty:'Recall',q:'Origin of the left gastro-epiploic and short gastric arteries?',a:'Splenic artery; the short gastrics (about 5) go to the fundus.',ar:'من الطحالية؛ والقصيرة (نحو 5) للقاع.'},
+ {ty:'MCQ',q:'The posterior wall of the rectus sheath below the midway level is:',opts:['Transversus aponeurosis','Fascia transversalis','Posterior lamina of internal oblique','Costal cartilages'],a:'B. Fascia transversalis.',ar:'أسفل المنتصف تبقى اللفافة المستعرضة.'},
+ {ty:'MCQ',q:'The skin of the umbilicus is supplied by:',opts:['T7','T9','T10','L1'],a:'C. T10.',ar:'السرة T10.'},
+ {ty:'MCQ',q:'The superior epigastric artery arises from:',opts:['External iliac','Internal thoracic','Subcostal','Aorta'],a:'B. Internal thoracic.',ar:'من الصدري الباطن.'},
+ {ty:'MCQ',q:'Caput medusae reflects enlargement of the link between:',opts:['SVC and IVC only','Portal and caval veins','Axillary and femoral veins','Splenic and renal veins'],a:'B. Portal and caval veins via para-umbilical veins.',ar:'بين الباب والأجوف عبر أوردة جانب السرة.'},
+ {ty:'MCQ',q:'A hernia in an elderly man, posterior to the cord and medial to the inferior epigastric artery, is:',opts:['Indirect inguinal','Direct inguinal','Femoral','Umbilical'],a:'B. Direct inguinal.',ar:'مباشر.'},
+ {ty:'MCQ',q:'A hernia below and lateral to the pubic tubercle, more common in females:',opts:['Femoral','Direct inguinal','Indirect inguinal','Lumbar'],a:'A. Femoral.',ar:'فخذي.'},
+ {ty:'MCQ',q:'The inferior lumbar triangle is bounded by iliac crest, latissimus dorsi and:',opts:['Erector spinae','External oblique','Internal oblique','Last rib'],a:'B. External oblique.',ar:'المائلة الخارجية.'},
+ {ty:'MCQ',q:'Which is NOT part of the stomach bed?',opts:['Pancreas','Spleen','Left lobe of the liver','Left suprarenal gland'],a:'C. The left lobe of the liver is an anterior relation.',ar:'الفص الأيسر علاقة أمامية.'},
+ {ty:'MCQ',q:'The right gastro-epiploic artery comes from the:',opts:['Splenic','Left gastric','Gastroduodenal','Celiac trunk directly'],a:'C. Gastroduodenal artery.',ar:'المعدية الاثني عشرية.'},
+];
+
+/* ===== helpers ===== */
+const bx=(x,y,w,h,col,t1,t2,t3)=>`<rect class="fl" x="${x}" y="${y}" width="${w}" height="${h}" rx="10" style="fill:color-mix(in srgb,var(${col}) 14%,var(--surface))"/><rect class="sk dr" pathLength="1" x="${x}" y="${y}" width="${w}" height="${h}" rx="10" style="stroke:var(${col});stroke-width:2.2"/><g class="lab"><text x="${x+w/2}" y="${y+17}" text-anchor="middle">${t1}</text>${t2?`<text class="sub" x="${x+w/2}" y="${y+32}" text-anchor="middle">${t2}</text>`:''}${t3?`<text class="sub" x="${x+w/2}" y="${y+46}" text-anchor="middle">${t3}</text>`:''}</g>`;
+const bxl=(x,y,w,h,col,head,lines)=>`<rect class="fl" x="${x}" y="${y}" width="${w}" height="${h}" rx="10" style="fill:color-mix(in srgb,var(${col}) 12%,var(--surface))"/><rect class="sk dr" pathLength="1" x="${x}" y="${y}" width="${w}" height="${h}" rx="10" style="stroke:var(${col});stroke-width:2.2"/><g class="lab"><text x="${x+10}" y="${y+18}" style="fill:var(${col})">${head}</text>${lines.map((s,i)=>`<text class="sub" x="${x+10}" y="${y+35+15*i}">${s}</text>`).join('')}</g>`;
+const cap=(x,y,s,col,a)=>`<g class="lab"><text x="${x}" y="${y}" text-anchor="${a||'start'}" style="fill:var(${col});font:700 13px var(--f-body)">${s}</text></g>`;
+const pw=(d,col,w,m)=>`<path class="dr arrowp" pathLength="1" style="stroke:var(${col});stroke-width:${w}" d="${d}"${m?` marker-end="url(#${m})"`:''}/>`;
+const dash=(d,col,w)=>`<path class="fl" d="${d}" style="fill:none;stroke:var(${col});stroke-width:${w||2};stroke-dasharray:6 5"/>`;
+const dot=(x,y,r,col)=>`<circle class="fl" cx="${x}" cy="${y}" r="${r}" style="fill:var(${col});stroke:var(--surface);stroke-width:1.6"/>`;
+/* front view of the anterior abdominal wall, local box 0..220 x 14..392, xiphoid peak (110,14), pubic symphysis (110,392) */
+const wallF=()=>sk('M0 40V300')+sk('M220 40V300')+sk('M0 40Q55 64 110 14Q165 64 220 40')+sk('M0 300Q55 312 110 392Q165 312 220 300')+sk('M110 14V392','thin');
+
+/* ===== svgA: nerve supply ===== */
+const defsA=`<defs>${mk('na','--m-eo')}</defs>`;
+const A0=Ly('A0',`${Tr(160,24,wallF()+`<circle cx="110" cy="204" r="5" style="fill:var(--ink)"/>`)}
+  <g class="lab"><text class="sub" x="270" y="16" text-anchor="middle">xiphoid</text><text class="sub" x="270" y="440" text-anchor="middle">pubic symphysis</text></g>`);
+const A1=Ly('A1',`
+  ${dash('M160 174H380M160 274H380','--m-eo',2.2)}
+  ${pth('M300 64V346','--m-eo','marker-end="url(#na)"')}
+  ${dot(300,64,5,'--m-eo')}${dot(300,134,5,'--m-eo')}${dot(300,228,5,'--m-eo')}${dot(300,296,5,'--m-eo')}
+  <circle class="fl" cx="300" cy="364" r="14" style="fill:none;stroke:var(--m-eo);stroke-width:2.6"/>
+  ${lb(404,68,'T7',['level of the xiphoid'],306,64,{col:'--m-eo',lx:400,ly:64})}
+  ${lb(404,138,'T9',['upper band: T7 to T9'],306,134,{col:'--m-eo',lx:400,ly:134})}
+  ${lb(404,232,'T10',['the umbilicus'],306,228,{col:'--m-eo',lx:400,ly:228})}
+  ${lb(404,300,'T11',['then T12'],306,296,{col:'--m-eo',lx:400,ly:296})}
+  ${lb(404,368,'L1',['groin and pubic region'],316,364,{col:'--m-eo',lx:400,ly:364})}
+  ${lb(150,108,'Above the umbilicus',['skin T7 to T9'],null,null,{a:'end',col:'--m-ta'})}
+  ${lb(150,222,'At the umbilicus',['skin T10'],null,null,{a:'end',col:'--m-ta'})}
+  ${lb(150,328,'Below the umbilicus',['skin T11, T12 and L1'],null,null,{a:'end',col:'--m-ta'})}
+  <g class="lab"><text x="20" y="470" style="fill:var(--m-eo)">Lower 6 thoracic nerves (T7 to T12) + L1 supply the wall</text></g>`);
+$('#svgA').innerHTML=defsA+A0+A1;
+
+/* ===== svgB: arteries ===== */
+const defsB=`<defs>${mk('ba','--h7')}${mk('bl','--m-eo')}</defs>`;
+const B0=Ly('B0',`${Tr(150,30,wallF()+`<circle cx="110" cy="204" r="5" style="fill:var(--ink)"/>`)}
+  ${lb(20,128,'Linea alba',null,260,128,{col:'--m-ta',lx:100,ly:124})}
+  ${lb(20,236,'Umbilicus',null,260,234,{col:'--m-ta',lx:90,ly:232})}`);
+const B1=Ly('B1',`
+  ${pth('M292 58V224','--h7','marker-end="url(#ba)"')}
+  ${pth('M292 396V246','--h7','marker-end="url(#ba)"')}
+  <circle class="fl" cx="292" cy="235" r="13" style="fill:none;stroke:var(--h7);stroke-width:2;stroke-dasharray:4 3"/>
+  ${lb(340,36,'Superior epigastric',['from the internal thoracic'],294,62,{col:'--h7',lx:338,ly:32})}
+  ${lb(340,446,'Inferior epigastric',['from the external iliac'],294,394,{col:'--h7',lx:338,ly:442})}
+  ${lb(20,330,'They anastomose',['at the level of the','umbilicus, inside the','rectus sheath'],280,240,{col:'--h7',lx:150,ly:326})}`);
+const B2=Ly('B2',`
+  ${pth('M392 112H356','--m-eo','marker-end="url(#bl)"')}${pth('M392 172H356','--m-eo','marker-end="url(#bl)"')}${pth('M392 246H356','--m-eo','marker-end="url(#bl)"')}${pth('M392 346H356','--m-io','marker-end="url(#ba)"')}
+  ${lb(400,116,'Intercostal (10th, 11th)',['and lateral thoracic'],null,null,{col:'--m-eo'})}
+  ${lb(400,176,'Subcostal',['from the aorta'],null,null,{col:'--m-eo'})}
+  ${lb(400,250,'Lumbar arteries (4)',['from the aorta'],null,null,{col:'--m-eo'})}
+  ${lb(400,350,'Deep circumflex iliac',['from the external iliac'],null,null,{col:'--m-io'})}`);
+$('#svgB').innerHTML=defsB+B0+B1+B2;
+
+/* ===== svgC: veins ===== */
+const defsC=`<defs>${mk('cv','--m-ta')}${mk('cp','--h6')}</defs>`;
+const C0=Ly('C0',`${Tr(200,44,wallF()+`<circle cx="110" cy="200" r="5" style="fill:var(--ink)"/>`)}`);
+const C1=Ly('C1',`
+  ${bx(20,6,100,40,'--m-ta','SVC')}${bx(20,440,100,52,'--m-ta','IVC')}
+  ${pth('M270 226V18H124','--m-ta','marker-end="url(#cv)"')}
+  ${pth('M270 248V472H124','--m-ta','marker-end="url(#cv)"')}
+  <circle class="fl" cx="270" cy="237" r="13" style="fill:var(--surface);stroke:var(--m-ta);stroke-width:2.4"/><text class="fl" x="270" y="241" text-anchor="middle" style="font:700 12px var(--f-body);fill:var(--ink)">1</text>
+  ${lb(450,84,'Superior epigastric v.',['to internal thoracic v.','then SVC'],274,100,{col:'--m-ta',lx:446,ly:80})}
+  ${lb(450,150,'Anastomosis 1',['superior and inferior','epigastric veins link','SVC and IVC'],284,230,{col:'--m-ta',lx:446,ly:146})}
+  ${lb(450,402,'Inferior epigastric v.',['to external iliac v.','then IVC'],274,390,{col:'--m-ta',lx:446,ly:398})}`);
+const C2=Ly('C2',`
+  ${pth('M226 190V34H124','--h3','marker-end="url(#cv)"')}
+  ${pth('M226 210V454H124','--h3','marker-end="url(#cv)"')}
+  <circle class="fl" cx="226" cy="200" r="13" style="fill:var(--surface);stroke:var(--h3);stroke-width:2.4"/><text class="fl" x="226" y="204" text-anchor="middle" style="font:700 12px var(--f-body);fill:var(--ink)">2</text>
+  ${lb(20,150,'Lateral thoracic v.',['to axillary v.','then SVC'],224,150,{col:'--h3',lx:152,ly:146})}
+  ${lb(20,292,'Superficial epigastric v.',['to great saphenous v.','then IVC'],224,300,{col:'--h3',lx:182,ly:288})}
+  ${lb(20,226,'Anastomosis 2',['lateral thoracic +','superficial epigastric'],214,206,{col:'--h3',lx:150,ly:222})}`);
+const C3=Ly('C3',`
+  ${[0,45,90,135,180,225,270,315].map(a=>{const r=a*Math.PI/180;return `<path class="dr arrowp" pathLength="1" style="stroke:var(--h6);stroke-width:2" d="M${310+8*Math.cos(r)} ${244+8*Math.sin(r)}L${310+22*Math.cos(r)} ${244+22*Math.sin(r)}"/>`}).join('')}
+  ${bx(458,228,166,48,'--h6','Portal vein','via para-umbilical veins')}
+  ${pth('M336 244H454','--h6','marker-end="url(#cp)"')}
+  ${lb(458,312,'Anastomosis 3',['para-umbilical veins link','portal and caval systems;','dilated = caput medusae'],326,258,{col:'--h6',lx:454,ly:308})}`);
+$('#svgC').innerHTML=defsC+C0+C1+C2+C3;
+
+/* ===== svgD: inguinal canal ===== */
+const bandPt=(t,s)=>[448+44*s-300*t,37+54*s+238*t]; /* s=0 upper edge, s=1 lower edge, t=0 deep end, t=1 superficial end */
+const D1=Ly('D1',Tr(0,40,`
+  <path class="fl" d="M448 37L492 91L192 329L148 275Z" style="fill:color-mix(in srgb,var(--m-rect) 9%,transparent);stroke:none"/>
+  ${sk('M448 37L492 91L192 329L148 275Z')}
+  <ellipse class="fl" cx="470" cy="64" rx="36" ry="22" transform="rotate(38 470 64)" style="fill:color-mix(in srgb,var(--m-ta) 24%,var(--surface));stroke:var(--m-ta);stroke-width:3"/>
+  <ellipse class="fl" cx="170" cy="302" rx="36" ry="22" transform="rotate(38 170 302)" style="fill:color-mix(in srgb,var(--m-eo) 24%,var(--surface));stroke:var(--m-eo);stroke-width:3"/>
+  ${lb(472,142,'Deep ring',['lateral end of the canal;','oval opening in the','transversalis fascia,','1 cm above the inguinal','ligament (midinguinal point)'],488,86,{col:'--m-ta',lx:468,ly:138})}
+  ${lb(232,344,'Superficial ring',['medial end; triangular','opening in the external','oblique aponeurosis, above','and lateral to the pubic crest'],188,318,{col:'--m-eo',lx:228,ly:340})}`));
+const arcs=[10,20,30].map(d=>{const ox=-0.62*d,oy=-0.78*d;return `<path class="dr arrowp" pathLength="1" style="stroke:var(--h7);stroke-width:2" d="M${448+ox} ${37+oy}Q${290+ox-16} ${156+oy-18} ${148+ox} ${275+oy}"/>`}).join('');
+const hatch=[0.56,0.64,0.72,0.8,0.88,0.96].map(t=>{const a=bandPt(t,0.04),b=bandPt(t,0.96);return `M${a[0]} ${a[1]}L${b[0]} ${b[1]}`}).join('');
+const D2=Ly('D2',Tr(0,40,`
+  ${arcs}
+  ${pw('M486 95L200 322','--m-rect',5)}
+  <path class="fl" d="M448 37L492 91L393 170L349 116Z" style="fill:color-mix(in srgb,var(--m-io) 24%,transparent);stroke:none"/>
+  <path class="fl" d="${hatch}" style="fill:none;stroke:var(--h3);stroke-width:2.4"/>
+  ${dash('M462 52L160 290','--m-ta',2.4)}
+  ${mkc(1,262,112,'--h7')}${mkc(2,362,228,'--m-rect')}${mkc(3,252,236,'--h3')}${mkc(4,410,100,'--m-io')}`)+`
+  ${keyRow(1,486,'--h7','Roof',[200,'arching fibres of internal oblique and transversus abdominis'])}
+  ${keyRow(2,508,'--m-rect','Floor',[200,'upper surface of the inguinal ligament'])}
+  ${keyRow(3,530,'--h3','Posterior wall',[200,'transversalis fascia (all) + conjoint tendon (medial half)'])}
+  ${keyRow(4,552,'--m-io','Anterior wall',[200,'external oblique aponeurosis (all) + internal oblique (lateral 1/3)'])}`);
+const D3=Ly('D3',Tr(0,40,`
+  ${pw('M470 64L170 302','--m-eo',7)}
+  ${pw('M486 80L186 318','--h1',3)}
+  ${lb(440,330,'Contents',['spermatic cord (male) or','round ligament of the uterus','(female) + ilio-inguinal','nerve (L1*)'],300,199,{col:'--m-eo',lx:436,ly:326})}`));
+$('#svgD').innerHTML=D1+D2+D3;
+
+/* ===== svgE: direct versus indirect hernia ===== */
+const defsE=`<defs>${mk('ea','--h7')}${mk('ed','--h6',1)}${mk('ei','--m-ta')}</defs>`;
+const SCR='M128 322C128 352 80 362 80 410C80 458 160 458 160 410C160 362 134 352 134 322';
+const E0=Ly('E0',`
+  ${sk('M170 112V292','thin')}
+  ${sk('M120 308L420 220','')}
+  ${sk(SCR)}
+  <ellipse class="fl" cx="146" cy="296" rx="22" ry="11" transform="rotate(-16 146 296)" style="fill:color-mix(in srgb,var(--m-eo) 22%,var(--surface));stroke:var(--m-eo);stroke-width:2.6"/>
+  ${lb(20,100,'Rectus abdominis',['lateral border'],170,116,{col:'--m-rect',lx:138,ly:96})}
+  ${lb(20,250,'Superficial ring',null,136,292,{col:'--m-eo',lx:122,ly:246})}
+  ${lb(250,356,'Inguinal ligament',['pubic tubercle to ASIS'],296,254,{col:'--m-rect',lx:296,ly:342})}
+  <g class="lab"><text class="sub" x="404" y="210">ASIS</text><text class="sub" x="112" y="326" text-anchor="end">pubic tubercle</text></g>
+  ${lb(176,436,'Scrotum',null,null,null,{col:'--muted'})}`);
+const E1=Ly('E1',`
+  ${pth('M292 256L182 122','--h7','marker-end="url(#ea)"')}
+  <path class="fl" d="M172 130L292 256L170 292Z" style="fill:color-mix(in srgb,var(--h6) 20%,transparent);stroke:none"/>
+  <ellipse class="fl" cx="342" cy="230" rx="22" ry="12" transform="rotate(-18 342 230)" style="fill:color-mix(in srgb,var(--m-ta) 24%,var(--surface));stroke:var(--m-ta);stroke-width:2.8"/>
+  ${pw('M226 196L186 268','--h6',4,'ed')}
+  ${lb(296,112,'Inferior epigastric',['artery'],232,176,{col:'--h7',lx:292,ly:108})}
+  ${lb(300,164,'Deep ring',['lateral to the artery'],344,222,{col:'--m-ta',lx:332,ly:168})}
+  ${lb(20,176,"Hesselbach's*",['triangle: medial','to the artery'],200,214,{col:'--h6',lx:104,ly:172})}
+  ${bxl(440,24,190,104,'--h6','Direct hernia',['1. Common in old age','2. Hard to reach scrotum','3. Posterior to the cord','4. Medial to the artery'])}`);
+const E2=Ly('E2',`
+  ${pw('M342 226L174 282C150 292 134 320 126 386','--m-ta',4,'ei')}
+  ${bxl(440,148,190,104,'--m-ta','Indirect hernia',['1. Common in young age','2. Easily reaches scrotum','3. Inside the spermatic cord','4. Lateral to the artery'])}`);
+$('#svgE').innerHTML=defsE+E0+E1+E2;
+
+/* ===== svgF: lumbar triangles ===== */
+const F1=Ly('F1',`
+  <path class="fl" d="M236 104L272 104V312H80V262Z" style="fill:color-mix(in srgb,var(--m-rect) 14%,transparent);stroke:none"/>
+  <path class="fl" d="M50 90H80V312H50Z" style="fill:color-mix(in srgb,var(--m-eo) 30%,transparent);stroke:none"/>
+  ${sk('M50 90V312M80 90V312')}
+  ${sk('M80 98C140 86 200 90 236 104')}
+  ${pw('M236 104L80 262','--m-rect',4)}
+  <path class="fl" d="M80 98L236 104L80 262Z" style="fill:color-mix(in srgb,var(--h7) 22%,transparent);stroke:var(--h7);stroke-width:2.4;stroke-dasharray:5 4"/>
+  ${lb(160,52,'Last (12th) rib',null,150,92,{a:'middle',col:'--m-ta',lx:150,ly:56})}
+  ${lb(20,342,'Erector spinae',null,64,300,{col:'--m-eo',lx:60,ly:336})}
+  <g class="lab"><text x="196" y="296" text-anchor="middle" style="fill:var(--m-rect)">Internal oblique</text></g>
+  ${lb(110,372,'Superior lumbar triangle',['last rib, erector spinae,','internal oblique'],null,null,{col:'--h7'})}
+  <path class="fl" d="M440 120L382 300L330 300L330 140Z" style="fill:color-mix(in srgb,var(--m-ta) 16%,transparent);stroke:none"/>
+  <path class="fl" d="M440 120L508 300H560V140Z" style="fill:color-mix(in srgb,var(--h2) 16%,transparent);stroke:none"/>
+  ${sk('M360 316Q445 280 530 316')}
+  ${pw('M440 120L382 300','--m-ta',4)}
+  ${pw('M440 120L508 300','--h2',4)}
+  <path class="fl" d="M440 120L382 300Q445 284 508 300Z" style="fill:color-mix(in srgb,var(--h7) 22%,transparent);stroke:none"/>
+  ${lb(362,194,'Latissimus',['dorsi'],410,200,{a:'end',col:'--m-ta',lx:366,ly:190})}
+  ${lb(520,194,'External oblique',null,482,200,{col:'--h2',lx:516,ly:190})}
+  ${lb(445,352,'Iliac crest',null,445,296,{a:'middle',col:'--muted',lx:445,ly:338})}
+  ${lb(445,56,'Inferior lumbar triangle',['iliac crest, latissimus dorsi,','external oblique'],null,null,{a:'middle',col:'--h7'})}`);
+$('#svgF').innerHTML=F1;
+
+/* ===== svgG: other hernias of the front wall ===== */
+const defsG=`<defs>${mk('gf','--h7')}</defs>`;
+const G0=Ly('G0',`${Tr(210,20,wallF()+`<circle cx="110" cy="200" r="3.5" style="fill:var(--ink)"/>`)}`);
+const G1=Ly('G1',`
+  <path class="fl" d="M320 70C282 120 282 190 312 262L328 262C358 190 358 120 320 70Z" style="fill:color-mix(in srgb,var(--m-ta) 16%,transparent);stroke:none"/>
+  ${pth('M320 70C282 120 282 190 312 262','--m-ta')}${pth('M320 70C358 120 358 190 328 262','--m-ta')}
+  <circle class="fl" cx="320" cy="222" r="11" style="fill:color-mix(in srgb,var(--h6) 40%,var(--surface));stroke:var(--h6);stroke-width:2.6"/>
+  ${pw('M382 152V290','--h7',2.2)}
+  <ellipse class="fl" cx="382" cy="222" rx="11" ry="18" style="fill:color-mix(in srgb,var(--h7) 30%,var(--surface));stroke:var(--h7);stroke-width:2.4"/>
+  ${dash('M216 322L298 392','--m-rect',2.6)}
+  <circle class="fl" cx="266" cy="404" r="7" style="fill:var(--h7);stroke:var(--surface);stroke-width:1.6"/>
+  ${lb(446,92,'Divarication of recti',['rectus bellies separated by','a stretched linea alba'],352,126,{col:'--m-ta',lx:442,ly:88})}
+  ${lb(446,196,'Umbilical hernia',['through the linea alba','at the umbilicus'],332,222,{col:'--h6',lx:442,ly:192})}
+  ${lb(446,292,'Incisional hernia',['through a weak surgical','scar'],390,236,{col:'--h7',lx:442,ly:288})}
+  ${lb(196,380,'Femoral hernia',['below the inguinal','ligament, below and','lateral to the pubic','tubercle'],259,404,{a:'end',col:'--h7',lx:200,ly:400})}`);
+$('#svgG').innerHTML=defsG+G0+G1;
+
+/* ===== stomach, anterior view ===== */
+const STM='M300 112C292 74 326 48 384 56C456 68 500 134 496 226C492 322 424 392 322 396C262 398 216 366 206 326L228 298C250 316 286 318 302 282C318 244 312 176 300 112Z';
+const OES='M286 26L296 110M312 26L306 104';
+const DUO='M210 326C176 338 140 332 104 316M230 298C192 296 150 290 112 276';
+const PYR='<ellipse class="fl" cx="218" cy="312" rx="8" ry="19" transform="rotate(32 218 312)" style="fill:color-mix(in srgb,var(--m-io) 30%,var(--surface));stroke:var(--m-io);stroke-width:2.4"/>';
+const txt=(x,y,s,col,a)=>`<text x="${x}" y="${y}" text-anchor="${a||'middle'}" style="fill:var(${col})">${s}</text>`;
+
+/* ===== svgH: anterior and peritoneal relations ===== */
+const defsH=`<defs>${mk('he','--m-eo')}</defs>`;
+const H0=Ly('H0',`
+  <path class="fl" d="${STM}Z" style="fill:color-mix(in srgb,var(--m-rect) 10%,transparent);stroke:none"/>
+  ${sk(STM)}${sk(OES)}${sk(DUO)}${PYR}
+  <g class="lab"><text class="sub" x="272" y="18" text-anchor="end">Oesophagus</text><text class="sub" x="90" y="352" text-anchor="middle">Duodenum</text><text class="sub" x="170" y="362" text-anchor="middle">Pylorus</text></g>`);
+const LIV='M60 120C110 76 220 76 296 126L292 206C216 232 110 208 60 120Z';
+const H1=Ly('H1',`
+  ${sk('M250 80C310 24 440 24 520 104','','stroke:var(--m-ta);stroke-width:3')}
+  <path class="fl" d="${LIV}" style="fill:color-mix(in srgb,var(--m-io) 18%,transparent);stroke:none"/>
+  ${sk(LIV,'','stroke:var(--m-io);stroke-width:2.4')}
+  ${pw('M556 318L488 296','--m-eo',3,'he')}
+  <g class="lab">${txt(380,20,'Diaphragm','--m-ta')}${txt(178,152,'Left lobe','--m-io')}${txt(178,168,'of the liver','--m-io')}</g>
+  ${lb(510,330,'Anterior',['abdominal wall'],null,null,{col:'--m-eo'})}`);
+const gOm=[[250,386],[280,393],[310,396],[340,396],[370,392],[400,384],[430,366],[460,340]];
+const H2=Ly('H2',`
+  ${[[232,222,236,304],[252,222,256,314],[272,220,280,312],[292,208,300,290]].map(([a,b,c,d])=>`<path class="dr arrowp" pathLength="1" style="stroke:var(--m-io);stroke-width:2.2" d="M${a} ${b}L${c} ${d}"/>`).join('')}
+  ${[[322,40,332,62],[338,36,346,58],[354,36,362,58]].map(([a,b,c,d])=>`<path class="dr arrowp" pathLength="1" style="stroke:var(--h6);stroke-width:2.2" d="M${a} ${b}L${c} ${d}"/>`).join('')}
+  <ellipse class="fl" cx="562" cy="190" rx="24" ry="52" style="fill:color-mix(in srgb,var(--m-ta) 22%,var(--surface));stroke:var(--m-ta);stroke-width:2.4"/>
+  ${[168,190,212].map(y=>`<path class="dr arrowp" pathLength="1" style="stroke:var(--h6);stroke-width:2.2" d="M497 ${y}H540"/>`).join('')}
+  ${gOm.map(([x,y])=>`<path class="dr arrowp" pathLength="1" style="stroke:var(--m-ta);stroke-width:2" d="M${x} ${y}V474"/>`).join('')}
+  ${lb(20,250,'Lesser omentum',['liver to lesser curvature'],236,262,{col:'--m-io',lx:178,ly:254})}
+  ${lb(20,62,'Gastrophrenic',['ligament: fundus','to diaphragm'],326,48,{col:'--h6',lx:112,ly:58})}
+  ${lb(534,62,'Gastrosplenic',['ligament'],522,168,{col:'--h6',lx:540,ly:76})}
+  <g class="lab"><text class="sub" x="562" y="262" text-anchor="middle">Spleen</text></g>
+  ${lb(468,436,'Greater omentum',['hangs from the greater','curvature'],458,410,{col:'--m-ta',lx:464,ly:432})}`);
+$('#svgH').innerHTML=defsH+H0+H1+H2;
+
+/* ===== svgI: stomach bed ===== */
+const I0=Ly('I0',`
+  <path class="fl" d="${STM}Z" style="fill:none;stroke:var(--muted);stroke-width:1.6;stroke-dasharray:5 5;opacity:.7"/>
+  <g class="lab"><text class="sub" x="330" y="426" text-anchor="middle">dashed line: outline of the stomach</text></g>`);
+const defsI=`<defs>${mk('ia','--h7')}</defs>`;
+const I1=Ly('I1',`
+  ${sk('M150 92C250 22 420 22 520 106','','stroke:var(--m-ta);stroke-width:3.2')}
+  ${pw('M200 264C225 250 245 266 272 252C300 238 322 254 350 238C378 222 405 234 440 208','--h7',3,'ia')}
+  <path class="fl" d="M330 164L350 128L374 164Z" style="fill:color-mix(in srgb,var(--h6) 45%,var(--surface));stroke:var(--h6);stroke-width:2.2"/>
+  <ellipse class="fl" cx="500" cy="200" rx="36" ry="66" style="fill:color-mix(in srgb,var(--h3) 26%,var(--surface));stroke:var(--h3);stroke-width:2.6"/>
+  ${mkc(1,336,30,'--m-ta')}${mkc(2,258,230,'--h7')}${mkc(3,350,106,'--h6')}${mkc(4,500,112,'--h3')}
+  ${keyRow(1,462,'--m-ta','Diaphragm',[200,'the upper relation of the stomach bed'])}
+  ${keyRow(2,484,'--h7','Splenic artery',[200,'runs along the upper border of the pancreas'])}
+  ${keyRow(3,506,'--h6','Left suprarenal gland',[200,'on the upper pole of the left kidney'])}
+  ${keyRow(4,528,'--h3','Spleen',[200,'to the left of the bed'])}`);
+const I2=Ly('I2',`
+  <path class="fl" d="M170 286C260 276 360 252 470 214L476 252C370 292 270 314 176 322Z" style="fill:color-mix(in srgb,var(--h1) 30%,var(--surface));stroke:var(--h1);stroke-width:2.6"/>
+  <ellipse class="fl" cx="356" cy="198" rx="52" ry="34" style="fill:color-mix(in srgb,var(--m-io) 22%,var(--surface));stroke:var(--m-io);stroke-width:2.6"/>
+  ${pw('M110 392C200 372 340 380 480 326','--m-eo',10)}
+  ${mkc(5,204,346,'--h1')}${mkc(6,428,196,'--m-io')}${mkc(7,120,366,'--m-eo')}
+  ${keyRow(5,550,'--h1','Pancreas',[200,'body of the pancreas'])}
+  ${keyRow(6,572,'--m-io','Left kidney',[200,'upper part'])}
+  ${keyRow(7,594,'--m-eo','Transverse colon',[200,'left colic flexure and transverse mesocolon*'])}
+  ${keyRow('+',616,'--muted','Lesser sac',[200,'the space between the stomach and its bed'])}`);
+$('#svgI').innerHTML=defsI+I0+I1+I2;
+
+/* ===== svgJ: arterial supply ===== */
+const defsJ=`<defs>${mk('ja','--h7')}${mk('jb','--h6')}${mk('jc','--h3')}</defs>`;
+const bez=(t,p)=>{const u=1-t;return [u*u*u*p[0][0]+3*u*u*t*p[1][0]+3*u*t*t*p[2][0]+t*t*t*p[3][0],u*u*u*p[0][1]+3*u*u*t*p[1][1]+3*u*t*t*p[2][1]+t*t*t*p[3][1]]};
+const SPL=[[140,62],[260,14],[440,24],[548,148]];
+const J0=Ly('J0',`
+  <path class="fl" d="${STM}Z" style="fill:color-mix(in srgb,var(--m-rect) 8%,transparent);stroke:none"/>
+  ${sk(STM)}${sk(OES)}${sk(DUO)}${PYR}
+  <ellipse class="fl" cx="560" cy="198" rx="26" ry="54" style="fill:color-mix(in srgb,var(--h3) 18%,var(--surface));stroke:var(--h3);stroke-width:2.2"/>
+  <g class="lab"><text class="sub" x="560" y="268" text-anchor="middle">Spleen</text></g>`);
+const J1=Ly('J1',`
+  ${dot(130,70,6,'--h7')}
+  ${pw('M134 74C190 96 262 118 292 150C300 190 298 246 290 282','--h7',3,'ja')}
+  ${pw('M128 76C96 150 108 250 186 310','--h7',3)}
+  ${pw('M196 312C236 330 270 316 290 284','--h7',3,'ja')}
+  ${pw('M140 62C260 14 440 24 548 148','--h3',3,'jc')}
+  ${lb(20,42,'Celiac trunk',null,126,66,{col:'--h7',lx:104,ly:38})}
+  ${lb(20,176,'Hepatic A.',['to the pylorus'],null,null,{col:'--h7'})}
+  ${lb(300,14,'Splenic A.',null,null,null,{a:'middle',col:'--h3'})}
+  ${lb(146,214,'Left gastric',['from the celiac trunk;','upper part of the','lesser curvature'],294,214,{col:'--h7',lx:268,ly:210})}
+  ${lb(60,420,'Right gastric',['from the hepatic;','lower part of the','lesser curvature'],240,326,{col:'--h7',lx:130,ly:416})}`);
+const J2=Ly('J2',`
+  ${pw('M214 340C250 404 336 412 418 384C468 356 498 300 500 252','--h6',3,'jb')}
+  ${pw('M538 176C520 200 508 226 502 250','--h3',3,'jc')}
+  <circle class="fl" cx="500" cy="254" r="9" style="fill:none;stroke:var(--ink);stroke-width:1.8;stroke-dasharray:3 3"/>
+  ${[0.58,0.66,0.74,0.82,0.9].map(t=>{const p=bez(t,SPL);return `<path class="dr arrowp" pathLength="1" style="stroke:var(--h3);stroke-width:2.2" d="M${p[0].toFixed(0)} ${p[1].toFixed(0)}L${(p[0]-24).toFixed(0)} ${(p[1]+24).toFixed(0)}"/>`}).join('')}
+  ${lb(200,452,'Right gastro-epiploic',['from the gastroduodenal','(a branch of the hepatic)'],300,408,{col:'--h6',lx:262,ly:448})}
+  ${lb(522,338,'Left gastro-',['epiploic','from the splenic'],510,244,{col:'--h3',lx:518,ly:334})}
+  ${lb(532,44,'Short gastric',['5 to the fundus','from the splenic'],492,112,{col:'--h3',lx:528,ly:48})}`);
+$('#svgJ').innerHTML=defsJ+J0+J1+J2;
+
+
+/* ===== engine ===== */
+let S={steps:{},cards:{}};
+try{const v=localStorage.getItem(PAGE.lsk);if(v)S=Object.assign(S,JSON.parse(v))}catch(e){}
+const save=()=>{try{localStorage.setItem(PAGE.lsk,JSON.stringify(S))}catch(e){}};
+
+/* nav */
+const navB=[...document.querySelectorAll('#nav button')],secs=navB.map(b=>b.dataset.go);
+$('#nav').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;document.getElementById(b.dataset.go).scrollIntoView({behavior:'smooth',block:'start'})});
+addEventListener('scroll',()=>{let cur=secs[0];secs.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<140)cur=id});navB.forEach(b=>b.classList.toggle('on',b.dataset.go===cur))},{passive:true});
+
+/* timeline */
+const fmt=m=>m===0?'0:00':`${Math.floor(m/60)}:${pad(m%60)}`;
+const TOT=PAGE.totalMin*60,CIRC=358.1;
+$('#clOf').textContent='of '+Math.floor(TOT/3600)+':'+pad(Math.floor(TOT%3600/60))+':00';
+$('#tl').innerHTML=STEPS.map((s,i)=>`<li class="step" id="st${i}"><div class="tm"><b>${fmt(s.a)}</b>${s.b-s.a} min</div><div class="spine"><span class="node"></span></div>
+ <div class="scard"><div class="top"><h4>${s.t}</h4><span class="len">${fmt(s.a)} to ${fmt(s.b)}</span></div><p class="en">${s.en}</p><p class="ar" lang="ar">${s.ar}</p>
+ <button class="tick" data-st="${i}" aria-label="Mark step ${i+1} done"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Done</button></div></li>`).join('');
+const CL={el:0,run:false,t:null,last:0};
+function paintSteps(){STEPS.forEach((s,i)=>{const e=$('#st'+i);e.classList.toggle('done',!!S.steps[i]);e.classList.toggle('cur',CL.run&&CL.el/60>=s.a&&CL.el/60<s.b)})}
+function paintClock(){
+  const e=Math.min(CL.el,TOT),h=Math.floor(e/3600),m=Math.floor(e%3600/60),s=e%60;
+  $('#clTxt').textContent=`${h}:${pad(m)}:${pad(s)}`;
+  $('#clRing').style.strokeDashoffset=CIRC*(1-e/TOT);
+  const idx=STEPS.findIndex(x=>e/60>=x.a&&e/60<x.b);
+  if(CL.el>0||CL.run){
+    if(e>=TOT){$('#clStep').textContent='Block finished';$('#clNow').textContent='Write your gaps in the Study Log and rest.'}
+    else if(idx>=0){const st=STEPS[idx];$('#clStep').textContent=`${idx+1}. ${st.t}`;$('#clNow').textContent=`${Math.ceil((st.b*60-e)/60)} min left in this step.`}
+  }
+  paintSteps();
+}
+function clStop(){CL.run=false;clearInterval(CL.t);$('#clGo').textContent=CL.el>0?'Resume':'Start'}
+$('#clGo').addEventListener('click',()=>{
+  if(CL.run){clStop();paintClock();return}
+  CL.run=true;CL.last=Date.now();$('#clGo').textContent='Pause';
+  CL.t=setInterval(()=>{const n=Date.now();CL.el+=Math.round((n-CL.last)/1000);CL.last=n;if(CL.el>=TOT){CL.el=TOT;clStop()}paintClock()},1000);paintClock()});
+$('#clReset').addEventListener('click',()=>{clStop();CL.el=0;$('#clGo').textContent='Start';$('#clStep').textContent='Ready when you are';$('#clNow').textContent=PAGE.idle;paintClock()});
+$('#tl').addEventListener('click',e=>{const b=e.target.closest('.tick');if(!b)return;const i=b.dataset.st;if(S.steps[i])delete S.steps[i];else S.steps[i]=1;save();paintSteps()});
+paintSteps();
+
+/* blurred recall sheets */
+document.querySelectorAll('.rtab').forEach(t=>{
+  t.addEventListener('click',e=>{const c=e.target.closest('td.rv');if(c)c.classList.toggle('shown')});
+  const b=t.querySelector('.rtBtn');let on=false;
+  if(b)b.addEventListener('click',()=>{on=!on;t.querySelectorAll('td.rv').forEach(c=>c.classList.toggle('shown',on));b.textContent=on?'Hide all answers':'Show all answers'});
+});
+
+/* drawing stepper (any number of svgs / steps) */
+if(typeof DRAW!=='undefined'&&DRAW.length&&!document.querySelector('.drawblk')){
+  const N=DRAW.length,SVGS=[...document.querySelectorAll('.canvas svg')];
+  let DS=0,seen={0:1},playT=null;
+  function setStep(n){
+    DS=Math.max(0,Math.min(N-1,n));seen[DS]=1;
+    const d=DRAW[DS];
+    SVGS.forEach(s=>s.toggleAttribute('hidden',s.id!==d.svg));
+    const svg=document.getElementById(d.svg);void svg.getBoundingClientRect();
+    const mine=DRAW.map((x,i)=>i).filter(i=>DRAW[i].svg===d.svg),fin=DS===mine[mine.length-1];
+    svg.classList.toggle('svg-past',!fin);
+    svg.querySelectorAll('.layer').forEach(g=>{
+      const si=DRAW.findIndex(x=>x.layer===g.id),base=si<0;
+      g.classList.toggle('on',base||si<=DS);
+      g.classList.toggle('past',!base&&si<DS&&!fin);
+      g.classList.toggle('off',!base&&si>DS);
+    });
+    $('#sbox').innerHTML=`<span class="k">Step ${DS+1} of ${N} · ${d.k}</span><h3>${d.t}</h3><p class="en">${d.en}</p><p class="ar" lang="ar">${d.ar}</p>`;
+    $('#dots').innerHTML=DRAW.map((_,i)=>`<button data-s="${i}" class="${i===DS?'on':seen[i]?'seen':''}" aria-label="Step ${i+1}">${i+1}</button>`).join('');
+    $('#sPrev').disabled=DS===0;$('#sNext').disabled=DS===N-1;
+  }
+  function stopPlay(){clearInterval(playT);playT=null;$('#sPlay').textContent='Play all'}
+  $('#dots').addEventListener('click',e=>{const b=e.target.closest('button');if(b){stopPlay();setStep(+b.dataset.s)}});
+  $('#sPrev').addEventListener('click',()=>{stopPlay();setStep(DS-1)});
+  $('#sNext').addEventListener('click',()=>{stopPlay();setStep(DS+1)});
+  $('#sPlay').addEventListener('click',()=>{if(playT){stopPlay();return}setStep(0);$('#sPlay').textContent='Stop';playT=setInterval(()=>{if(DS>=N-1){stopPlay();return}setStep(DS+1)},4500)});
+  setStep(0);
+}
+
+/* per-topic drawing blocks */
+if(typeof DRAW!=='undefined'&&DRAW.length&&document.querySelector('.drawblk')){
+  document.querySelectorAll('.drawblk').forEach(root=>{
+    const ids=root.dataset.svgs.split(','),idx=DRAW.map((x,i)=>i).filter(i=>ids.includes(DRAW[i].svg)),N=idx.length;
+    const q=s=>root.querySelector(s),SV=[...root.querySelectorAll('.canvas svg')];
+    let DS=0,seen={0:1},playT=null;
+    function setStep(n){
+      DS=Math.max(0,Math.min(N-1,n));seen[DS]=1;
+      const gi=idx[DS],d=DRAW[gi];
+      SV.forEach(s=>s.toggleAttribute('hidden',s.id!==d.svg));
+      const svg=document.getElementById(d.svg);void svg.getBoundingClientRect();
+      const mine=idx.filter(i=>DRAW[i].svg===d.svg),fin=gi===mine[mine.length-1];
+      svg.classList.toggle('svg-past',!fin);
+      svg.querySelectorAll('.layer').forEach(g=>{
+        const si=DRAW.findIndex(x=>x.layer===g.id),base=si<0;
+        g.classList.toggle('on',base||si<=gi);
+        g.classList.toggle('past',!base&&si<gi&&!fin);
+        g.classList.toggle('off',!base&&si>gi);
+      });
+      q('.sbox').innerHTML=`<span class="k">Step ${DS+1} of ${N} · ${d.k}</span><h3>${d.t}</h3><p class="en">${d.en}</p><p class="ar" lang="ar">${d.ar}</p>`;
+      q('.dots').innerHTML=idx.map((_,i)=>`<button data-s="${i}" class="${i===DS?'on':seen[i]?'seen':''}" aria-label="Step ${i+1}">${i+1}</button>`).join('');
+      q('.sPrev').disabled=DS===0;q('.sNext').disabled=DS===N-1;
+    }
+    function stopPlay(){clearInterval(playT);playT=null;q('.sPlay').textContent='Play all'}
+    q('.dots').addEventListener('click',e=>{const b=e.target.closest('button');if(b){stopPlay();setStep(+b.dataset.s)}});
+    q('.sPrev').addEventListener('click',()=>{stopPlay();setStep(DS-1)});
+    q('.sNext').addEventListener('click',()=>{stopPlay();setStep(DS+1)});
+    q('.sPlay').addEventListener('click',()=>{if(playT){stopPlay();return}setStep(0);q('.sPlay').textContent='Stop';playT=setInterval(()=>{if(DS>=N-1){stopPlay();return}setStep(DS+1)},4500)});
+    setStep(0);
+  });
+}
+
+/* question cards */
+let deck=CARDS.map((c,i)=>Object.assign({i},c)),pos=0,onlyRev=false,flipped=false;
+const CHIPS=PAGE.chips||['All'].concat([...new Set(CARDS.map(c=>c.ty))]).map(t=>({l:t,f:c=>t==='All'||c.ty===t}));
+let filt=CHIPS[0];
+$('#dchips').innerHTML=CHIPS.map((c,k)=>`<button class="chip${k===0?' on':''}" data-k="${k}">${c.l}</button>`).join('');
+function visible(){return deck.filter(c=>filt.f(c)&&(!onlyRev||S.cards[c.i]==='r'))}
+function renderCard(){
+  const v=visible();flipped=false;$('#flip').classList.remove('on');$('#rGot').disabled=$('#rRev').disabled=true;
+  const got=Object.values(S.cards).filter(x=>x==='g').length,rv=Object.values(S.cards).filter(x=>x==='r').length;
+  $('#score').innerHTML=`<b>${got} got it</b> · <u>${rv} review</u> · ${CARDS.length-got-rv} new`;
+  $('#dbar').style.width=(got/CARDS.length*100)+'%';
+  if(typeof afterCards==='function')afterCards();
+  if(!v.length){$('#inner').innerHTML=`<div class="face"><h3>${onlyRev?'No cards marked Review. Nice.':'No cards'}</h3><p class="hintx">${onlyRev?'Rate cards as Review and they will show here.':''}</p></div>`;return}
+  pos=Math.max(0,Math.min(pos,v.length-1));const c=v[pos];
+  $('#inner').innerHTML=`<button class="face front" id="front" aria-label="Show answer"><div class="tagr"><span class="ty">${c.ty}${c.tl?' · '+c.tl:''}</span><span class="cn">${pos+1} / ${v.length}</span></div><h3>${c.q}</h3>${c.opts?`<div class="opts">${c.opts.map((o,k)=>`<div><b class="mono">${'ABCD'[k]}</b>  ${o}</div>`).join('')}</div>`:''}<p class="hintx">Answer aloud first, then tap to flip.</p></button>
+  <div class="face back" id="backf"><div class="tagr"><span class="ty">Answer</span><span class="cn">${pos+1} / ${v.length}</span></div><div class="ans">${c.a}</div><p class="ar" lang="ar">${c.ar}</p></div>`;
+  $('#front').addEventListener('click',flip);
+}
+function flip(){flipped=!flipped;$('#flip').classList.toggle('on',flipped);$('#rGot').disabled=$('#rRev').disabled=!flipped}
+$('#flip').addEventListener('click',e=>{if(flipped&&e.target.closest('.back'))flip()});
+function rate(r){const v=visible();if(!v.length)return;S.cards[v[pos].i]=r;save();if(pos<v.length-1)pos++;renderCard()}
+$('#rGot').addEventListener('click',()=>rate('g'));$('#rRev').addEventListener('click',()=>rate('r'));
+$('#dNext').addEventListener('click',()=>{pos++;renderCard()});$('#dPrev').addEventListener('click',()=>{pos--;renderCard()});
+$('#dShuf').addEventListener('click',()=>{for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]]}pos=0;renderCard()});
+$('#dRev').addEventListener('click',()=>{onlyRev=!onlyRev;pos=0;$('#dRev').textContent=onlyRev?'Show all cards':'Only review cards';renderCard()});
+$('#dchips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;filt=CHIPS[+b.dataset.k];pos=0;document.querySelectorAll('#dchips .chip').forEach(x=>x.classList.toggle('on',x===b));renderCard()});
+renderCard();
+
+
+</script>
+
+</body></html>
